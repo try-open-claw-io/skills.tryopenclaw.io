@@ -1,0 +1,121 @@
+# View type schema reference for manage.yaml operation_phases[*].views[*]
+#
+# This file documents the SHAPE of each View type the platform FE renderer
+# supports. Renderer registry lives at tryopenclaw.io/fe/src/components/
+# use-case-views/operation/. View types listed here MUST match a registered
+# renderer — adding a new view type requires FE code, not just YAML.
+#
+# Each view type entry below explains:
+#   - description     : what the renderer does
+#   - required_fields : agent MUST supply these when adding a View of this type
+#   - optional_fields : agent MAY supply
+#   - notes           : behavior quirks an agent author should know
+
+view_types:
+  textarea-edit-multi-section:
+    description: |
+      Multi-section markdown editor. Reads a single markdown file, splits it
+      by `## <section>` headers, and renders one editable textarea per section
+      configured in `sections[]`. Save POSTs full file content back to
+      `save_route`. Use for KB-like free-form text destinations.
+    required_fields:
+      type: textarea-edit-multi-section
+      label: "string, Vietnamese, ≤80 chars"
+      data_source:
+        plugin_route: "string, GET → { content: string }"
+      save_route: "string, POST { content: string } → 200"
+      sections:
+        - id: "string, unique-within-view, kebab-case"
+          label: "string, Vietnamese, ≤80 chars, shown above the textarea"
+          section: "string, MUST match the markdown `## <header>` text exactly"
+    notes: |
+      Adding a new section to an existing view = just extend `sections[]`.
+      No plugin code change needed. New section appears in dashboard, the
+      first save writes the new `## <header>` block into the file.
+
+  list-view:
+    description: |
+      Table of records with optional row actions and header actions. Calls
+      `data_source.plugin_route` (GET) which MUST return `{ rows: object[] }`.
+      Each row's fields are projected via `columns[]`.
+    required_fields:
+      type: list-view
+      label: "string"
+      data_source:
+        plugin_route: "string, GET → { rows: object[] }"
+      columns: "string[], field names from the row schema"
+    optional_fields:
+      row_actions: |
+        Array of { label, type, route, body? }. `type: 'route-call'` POSTs to
+        `route` (with `{row_id}` placeholder substituted) with optional body.
+      header_actions: |
+        Array of { label, type, url_route | route }. `type: 'external-link'`
+        + `url_route` returns `{ url }` for a "Mở X" button.
+
+  data-import:
+    description: |
+      File upload widget (typically CSV) that POSTs multipart to `upload_route`.
+      Server-side parses + writes the destination file.
+    required_fields:
+      type: data-import
+      label: "string"
+      accept: "string, file extension filter, e.g. '.csv'"
+      upload_route: "string, POST multipart → 200"
+      max_rows: "integer, hard cap, e.g. 200"
+
+  leads-view:
+    description: |
+      Lead/order board. Like list-view but with first-run setup hook + per-row
+      status actions. Used for Zalo sales lead pipelines.
+    required_fields:
+      type: leads-view
+      label: "string"
+      data_source:
+        plugin_route: "string, GET → { rows: object[] }"
+      columns: "string[]"
+    optional_fields:
+      first_run_prompt: |
+        { field: { id, label, placeholder }, submit_route }. Shown when
+        plugin returns "not_configured" on first GET — prompts user for one
+        setup value (e.g. sheet URL) then POSTs to submit_route.
+      row_actions: "see list-view"
+      header_actions: "see list-view"
+
+# Path traversal rules for any agent-generated handler that reads/writes files
+# inside the workspace directory. Templates in handler-templates/ already
+# import the helper that enforces these.
+path_safety_rules:
+  - "Reject paths containing `..`"
+  - "Reject absolute paths (`/` prefix)"
+  - "Reject paths starting with `.` (no dotfiles)"
+  - "Reject paths matching `\\\\` or `\\` (no backslashes — Windows-style)"
+  - "Resolve final path under workspaceDir, MUST start with workspaceDir prefix"
+
+# Editable scope per case — agent MUST whitelist against this when validating
+# the user's request.
+editable_scope:
+  case_a:
+    description: "Rename / layout / reorder / remove. No new routes, no new files."
+    allowed_paths:
+      - /layout
+      - /operation_phases/*/label
+      - /operation_phases/*/help
+      - /operation_phases/*/icon
+      - /operation_phases/*/views/*/label
+    allowed_ops: [replace, remove, move]
+
+  case_b:
+    description: "Add view/phase that reuses a route already wired in current manage.yaml."
+    allowed_ops: [add]
+    constraints:
+      - "Any new view MUST set type to one of view_types above"
+      - "Any new view's plugin_route / save_route / upload_route MUST appear as a value somewhere in current manage.yaml"
+      - "entry_condition for new phase MUST be: install_status == 'verified'"
+
+  case_c:
+    description: "Generate new plugin handler + route + (optional) new file destination."
+    constraints:
+      - "Allowed when no existing route fits — agent must justify in the diff explanation"
+      - "Generated handlers MUST live in <plugin>/src/handlers/<feature>-{read,write}.ts"
+      - "Generated handlers MUST import safeWorkspacePath() helper or equivalent path-safety guard"
+      - "Build + restart + verify MUST succeed before manage.yaml is touched"

@@ -1,0 +1,45 @@
+// Pure path-safety helper. Stateless — pass the workspaceDir resolved at
+// plugin-entry time (via `api.runtime.agent.resolveAgentWorkspaceDir(api.config)`
+// or whatever convention the plugin already uses) as the first argument.
+//
+// Where to put: alongside other path utilities in the plugin's `src/`
+// (e.g. `workspace-files.ts`, or a fresh `path-safety.ts`). Before adding,
+// grep the plugin for an existing `safeWorkspacePath` — many plugins already
+// ship a variant; DO NOT duplicate. If signatures differ, prefer the
+// existing helper and adapt the handler templates to its shape.
+//
+// Requirements satisfied:
+//   1. Reject `..` segment
+//   2. Reject absolute paths
+//   3. Reject paths starting with `.`
+//   4. Reject backslash (Windows-style)
+//   5. Final resolved path MUST start with workspaceDir prefix
+
+import path from "node:path";
+
+export function safeWorkspacePath(workspaceDir: string, relPath: string): string {
+  if (typeof workspaceDir !== "string" || workspaceDir.length === 0) {
+    throw new Error("workspaceDir must be a non-empty string");
+  }
+  if (typeof relPath !== "string" || relPath.length === 0) {
+    throw new Error("path must be a non-empty string");
+  }
+  if (relPath.includes("..")) {
+    throw new Error("path must not contain '..'");
+  }
+  if (path.isAbsolute(relPath)) {
+    throw new Error("path must be relative, not absolute");
+  }
+  if (relPath.startsWith(".")) {
+    throw new Error("path must not start with '.'");
+  }
+  if (relPath.includes("\\")) {
+    throw new Error("path must not contain backslash");
+  }
+  const baseAbs = path.resolve(workspaceDir);
+  const resolved = path.resolve(baseAbs, relPath);
+  if (resolved !== baseAbs && !resolved.startsWith(baseAbs + path.sep)) {
+    throw new Error("resolved path escapes workspaceDir");
+  }
+  return resolved;
+}

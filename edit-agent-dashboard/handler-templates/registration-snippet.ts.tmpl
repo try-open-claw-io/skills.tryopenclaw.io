@@ -1,0 +1,42 @@
+// Snippet to insert into the plugin's route registration entry (typically
+// src/operation-routes.ts). Three parts: (1) imports near the top of the
+// file, (2) resolve workspaceDir once inside the registration function via
+// the SDK API, (3) call the handler factories with workspaceDir and pass
+// the returned function to api.registerHttpRoute.
+//
+// SDK API used: `api.runtime.agent.resolveAgentWorkspaceDir(api.config)`.
+// This is the canonical workspace-dir resolver in the plugin SDK
+// (openclaw-toc/src/plugin-sdk/core). If the plugin already resolves the
+// workspaceDir via another convention (e.g. a local resolveWorkspaceRoot()
+// helper), reuse that instead — DO NOT introduce a second resolver in
+// the same plugin.
+//
+// Substitute placeholders before inserting:
+//   {{FEATURE}}           — kebab-case slug (e.g. "bot-config")
+//   {{HANDLER_NAME_READ}} — handle<Feature>Read (e.g. "handleBotConfigRead")
+//   {{HANDLER_NAME_WRITE}}— handle<Feature>Write
+//   ${BASE}               — leave the literal — it's an existing const in the file
+
+// ── Imports (add near other handler imports at top of file) ──
+import { make{{HANDLER_NAME_READ}} } from "./handlers/{{FEATURE}}-read.js";
+import { make{{HANDLER_NAME_WRITE}} } from "./handlers/{{FEATURE}}-write.js";
+
+// ── Inside the registration function, BEFORE the registerHttpRoute calls ──
+// Resolve once and reuse — workspaceDir does not change for the life of
+// the plugin process. If a `workspaceDir` const is already declared in
+// this function, skip this line.
+const workspaceDir = api.runtime.agent.resolveAgentWorkspaceDir(api.config);
+
+// ── Registration (append inside the same function as existing registerHttpRoute calls) ──
+api.registerHttpRoute({
+  path: `${BASE}/{{FEATURE}}/read`,
+  auth: "gateway",
+  match: "exact",
+  handler: make{{HANDLER_NAME_READ}}(workspaceDir),
+});
+api.registerHttpRoute({
+  path: `${BASE}/{{FEATURE}}/write`,
+  auth: "gateway",
+  match: "exact",
+  handler: make{{HANDLER_NAME_WRITE}}(workspaceDir),
+});

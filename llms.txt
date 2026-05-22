@@ -1,0 +1,20 @@
+# skills.tryopenclaw.io — Platform Skills index
+
+AI-friendly playbooks for OpenClaw Platform Skills. Fetched at runtime by the thin `SKILL.md` router bundled in each use-case.
+
+## Skills hosted here
+
+- [edit-agent-dashboard](edit-agent-dashboard/llms.txt) — Edit the agent dashboard (`/use-cases/:id/operate`) of an installed use-case: rename phase/view, change layout, add or reuse a tab/view, add a new plugin route. Per-Instance + ephemeral.
+
+## How agents use this site
+
+1. Bundled `SKILL.md` lists the URL of the relevant playbook for the current request.
+2. Agent fetches the playbook via `WebFetch` / `curl` and follows the steps inside.
+3. If the fetch fails, agent falls back to the bundled snapshot of the playbook (offline safety net).
+
+## Conventions
+
+- Every directory has its own `llms.txt` listing its files.
+- Markdown for playbooks. YAML for schemas. `.tmpl` for code templates.
+- No directory deeper than 2 levels — keeps URLs short.
+- Paths are stable. To replace a playbook, write a new file + update the index; do not rename.

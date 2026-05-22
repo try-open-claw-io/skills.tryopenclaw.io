@@ -1,0 +1,29 @@
+# edit-agent-dashboard — playbook index
+
+Playbooks for the `edit-agent-dashboard` Platform Skill. The bundled `SKILL.md` routes to one of these based on the request classification (Case A / B / C).
+
+## Case playbooks (pick the smallest that satisfies the request)
+
+- [case-rename.md](case-rename.md) — **Case A**: rename / relabel / reorder / change layout / remove a phase or view. YAML-only edits, no code changes.
+- [case-reuse.md](case-reuse.md) — **Case B**: add a new tab/view that REUSES a route already wired in `manage.yaml`. No plugin rebuild.
+- [case-new-route.md](case-new-route.md) — **Case C**: generate a NEW plugin handler + route for a new data destination. Modifies plugin TS, rebuilds, restarts gateway. Most invasive.
+
+## Cross-cutting
+
+- [safety-rollback.md](safety-rollback.md) — Read BEFORE starting Case C. Executed on ANY failure during Case C (build error, restart timeout, 404).
+- [view-types.yaml](view-types.yaml) — Schema reference for every supported View type (`list-view`, `data-import`, `textarea-edit-multi-section`, `leads-view`). REQUIRED read before authoring any new view.
+
+## Handler templates (Case C only)
+
+- [handler-templates/read-handler.ts.tmpl](handler-templates/read-handler.ts.tmpl) — GET handler skeleton.
+- [handler-templates/write-handler.ts.tmpl](handler-templates/write-handler.ts.tmpl) — POST/PUT handler skeleton.
+- [handler-templates/path-safety-helper.ts.tmpl](handler-templates/path-safety-helper.ts.tmpl) — Path sanitization helper (escape-traversal). Always include when adding a handler that touches files.
+- [handler-templates/registration-snippet.ts.tmpl](handler-templates/registration-snippet.ts.tmpl) — Snippet to register the new handler in `operation-routes.ts`.
+
+## Fetch order recommended by the router
+
+1. Always: [view-types.yaml](view-types.yaml) if any new view is added.
+2. Always: the single `case-*.md` matching the classified request.
+3. Case C only: [safety-rollback.md](safety-rollback.md) + the relevant handler templates.
+
+Other files in this skill's bundle (lock, diff-before-write, backup) are enforced by the bundled `SKILL.md` itself — no playbook to fetch.
