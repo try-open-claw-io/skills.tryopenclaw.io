@@ -12,12 +12,21 @@
 #   - notes           : behavior quirks an agent author should know
 
 view_types:
+  # ── Shared optional field across every view ─────────────────────────────
+  # `required_connector: string[]` (top-level on every view): when set, the
+  # renderer shows a "connector not connected" stub until every listed
+  # connector reports connected; the view body only mounts once all are
+  # ready. Use this when the view depends on a Composio / OAuth integration
+  # (e.g. Google Sheets) being paired first. Each entry below lists
+  # `required_connector` under optional_fields as a reminder.
+
   textarea-edit-multi-section:
     description: |
       Multi-section markdown editor. Reads a single markdown file, splits it
       by `## <section>` headers, and renders one editable textarea per section
       configured in `sections[]`. Save POSTs full file content back to
-      `save_route`. Use for KB-like free-form text destinations.
+      `save_route`. Use for KB-like free-form text destinations with N sections
+      under a single "Lưu tất cả" button.
     required_fields:
       type: textarea-edit-multi-section
       label: "string, Vietnamese, ≤80 chars"
@@ -28,10 +37,39 @@ view_types:
         - id: "string, unique-within-view, kebab-case"
           label: "string, Vietnamese, ≤80 chars, shown above the textarea"
           section: "string, MUST match the markdown `## <header>` text exactly"
+    optional_fields:
+      required_connector: "string[], see top-level note"
     notes: |
       Adding a new section to an existing view = just extend `sections[]`.
       No plugin code change needed. New section appears in dashboard, the
       first save writes the new `## <header>` block into the file.
+
+  textarea-edit:
+    description: |
+      Single-blob markdown editor. Loads markdown from `data_source.plugin_route`,
+      lets the operator edit + save full overwrite via `save_route`. When `section`
+      is set, only that `## <header>` block is editable but the full file is still
+      POSTed (renderer merges the edited body back before sending). Use for one
+      editable destination per view. For multiple sections sharing one backing file
+      under a single Save button, use textarea-edit-multi-section instead.
+    required_fields:
+      type: textarea-edit
+      label: "string, Vietnamese, ≤80 chars"
+      data_source:
+        plugin_route: "string, GET → { ok: true, content: string }"
+      save_route: "string, POST { content: string } → 200 { ok: true, bytes }"
+    optional_fields:
+      section: |
+        Level-2 markdown heading (without the leading `## `). When set, renderer
+        surfaces only that section's body in the textarea and merges edits back
+        via upsertMarkdownSection before POSTing the full file. Missing section
+        on read = empty textarea; first save creates the `## <header>` block.
+      required_connector: "string[], see top-level note"
+    notes: |
+      Save is full-overwrite, NOT append. Save button stays disabled until the
+      textarea differs from the last known saved content. Section-aware mode
+      lets one backing file (e.g. KNOWLEDGE_BASE.md) power N visually-separate
+      textareas without any BE change.
 
   list-view:
     description: |
@@ -51,17 +89,25 @@ view_types:
       header_actions: |
         Array of { label, type, url_route | route }. `type: 'external-link'`
         + `url_route` returns `{ url }` for a "Mở X" button.
+      required_connector: "string[], see top-level note"
 
   data-import:
     description: |
       File upload widget (typically CSV) that POSTs multipart to `upload_route`.
-      Server-side parses + writes the destination file.
+      Server-side parses + writes the destination file. Optional `merge_policy`
+      lets the agent expose a per-import merge-strategy picker.
     required_fields:
       type: data-import
       label: "string"
-      accept: "string, file extension filter, e.g. '.csv'"
+      accept: "string OR string[], file extension filter, e.g. '.csv' or ['.csv', '.tsv']"
       upload_route: "string, POST multipart → 200"
       max_rows: "integer, hard cap, e.g. 200"
+    optional_fields:
+      merge_policy: |
+        { default: string, options: string[] }. Per-row merge strategy presented
+        to the operator before upload. `default` MUST appear in `options`. When
+        the whole field is omitted, plugin defaults apply (per validator a255e45).
+      required_connector: "string[], see top-level note"
 
   leads-view:
     description: |
@@ -80,6 +126,39 @@ view_types:
         setup value (e.g. sheet URL) then POSTs to submit_route.
       row_actions: "see list-view"
       header_actions: "see list-view"
+      required_connector: "string[], see top-level note"
+
+  gap-report:
+    description: |
+      Read-only report of "gaps" in some data set — what's missing, stale,
+      or unanswered. Renders from `data_source.plugin_route`. Schema is thin
+      in v0 (validator only enforces data_source.plugin_route); v0.5 will
+      add `time_window`, `group_by`, and `actions[]`.
+    required_fields:
+      type: gap-report
+      label: "string"
+      data_source:
+        plugin_route: "string, GET → { items: object[] } (shape TBD, plugin-defined)"
+    optional_fields:
+      required_connector: "string[], see top-level note"
+    notes: |
+      Validator deliberately loose in v0 — author + plugin agree on payload
+      shape until v0.5 schema tightening lands.
+
+  kpi-strip:
+    description: |
+      Horizontal strip of KPI tiles. Plugin returns one value per declared
+      `kpis[]` entry. Use for at-a-glance dashboards (count, total, rate).
+    required_fields:
+      type: kpi-strip
+      label: "string"
+      data_source:
+        plugin_route: "string, GET → { values: { <kpi_id>: number | string } }"
+      kpis:
+        - id: "string, unique-within-view, kebab-case, matches a key in `values`"
+          label: "string, shown under the value"
+    optional_fields:
+      required_connector: "string[], see top-level note"
 
 # Path traversal rules for any agent-generated handler that reads/writes files
 # inside the workspace directory. Templates in handler-templates/ already
