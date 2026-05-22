@@ -119,11 +119,14 @@ view_types:
       data_source:
         plugin_route: "string, GET → { rows: object[] }"
       columns: "string[]"
-    optional_fields:
       first_run_prompt: |
-        { field: { id, label, placeholder }, submit_route }. Shown when
-        plugin returns "not_configured" on first GET — prompts user for one
-        setup value (e.g. sheet URL) then POSTs to submit_route.
+        { field: { id, label, placeholder? }, submit_route }. Shown when plugin
+        returns "not_configured" on first GET — prompts user for one setup value
+        (e.g. sheet URL) then POSTs to submit_route. Required by validator AND
+        by FE renderer: leads-view-renderer.tsx accesses
+        view.first_run_prompt.field without null check, so omitting it crashes
+        the view on mount when plugin returns not_configured.
+    optional_fields:
       row_actions: "see list-view"
       header_actions: "see list-view"
       required_connector: "string[], see top-level note"
