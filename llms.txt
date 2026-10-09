@@ -5,6 +5,7 @@ AI-friendly playbooks for OpenClaw Platform Skills. Fetched at runtime by the th
 ## Skills hosted here
 
 - [edit-agent-dashboard](edit-agent-dashboard/llms.txt) — Edit the agent dashboard (`/use-cases/:id/operate`) of an installed use-case: rename phase/view, change layout, add or reuse a tab/view, add a new plugin route. Per-Instance + ephemeral.
+- [clawexperts-code](clawexperts-code/llms.txt) — Knowledge core of ClawExperts Code, the agent that lets an End-User create, edit, test, package and share their own agent by chat: interview + charter, the default usage guide every built agent gets, plugin rules, test scenarios, Bundle format, platform architecture. Vietnamese. Written for OpenClaw 2026.9.7.
 
 ## How agents use this site
 

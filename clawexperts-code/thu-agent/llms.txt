@@ -1,0 +1,5 @@
+# thu-agent — thử agent bằng kịch bản
+
+Playbook cho skill `thu-agent` của ClawExperts Code. Viết cho OpenClaw 2026.9.7. Bản chụp trong Bundle CE Code: `skills/thu-agent/references/`.
+
+- [kich-ban-thu.md](kich-ban-thu.md) — schema tệp kịch bản (cùng bộ chạy eval), viết ca từ charter, chạy, chấm đạt/trượt

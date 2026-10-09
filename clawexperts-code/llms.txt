@@ -1,0 +1,21 @@
+# ClawExperts Code — lõi kiến thức
+
+Playbook của ClawExperts Code (CE Code): agent giúp End-User tự tạo, sửa, thử, đóng gói và chia sẻ agent của riêng họ (Personal Agent Chat) trên instance OpenClaw, chỉ bằng chat. Viết cho OpenClaw 2026.9.7.
+
+Mỗi thư mục con ứng với một skill của CE Code. Bundle của CE Code mang bản chụp của thư mục đó ở `skills/<skill>/references/` (giống hệt từng byte) để dùng khi không tải được bản web.
+
+## Thư mục
+
+- [tao-agent/](tao-agent/llms.txt) — tạo agent mới: phỏng vấn, mẫu charter, hướng dẫn dùng của agent, kiến trúc nền tảng (agent làm được gì, không được đụng gì)
+- [viet-plugin/](viet-plugin/llms.txt) — luật viết plugin sổ dữ liệu: khai báo dữ liệu, secret, ứng dụng, tool riêng
+- [thu-agent/](thu-agent/llms.txt) — viết kịch bản thử agent (cùng schema với bộ chạy eval)
+- [sua-agent/](sua-agent/llms.txt) — định dạng Bundle, phiên bản, cài, chia sẻ, quay lại, gỡ
+
+## Tệp
+
+- [huong-dan-su-dung.md](huong-dan-su-dung.md) — hướng dẫn dùng CE Code: tám việc làm được, câu nói mẫu, việc chưa làm được. Bản tham chiếu: nguồn là skill `huong-dan-su-dung` trong Bundle CE Code đang cài.
+
+## Quy ước
+
+- Mỗi playbook ghi ở dòng đầu bản OpenClaw nó được viết cho. Máy chạy bản mới hơn thì tra tài liệu đúng bản ở `/app/docs` trong container trước khi làm theo.
+- Đường dẫn ổn định: thay một playbook bằng tệp mới + sửa `llms.txt`, không đổi tên tệp đã đăng.
