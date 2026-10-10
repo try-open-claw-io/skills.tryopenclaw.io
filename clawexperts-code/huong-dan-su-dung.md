@@ -75,6 +75,7 @@ Bạn muốn nghe kỹ phần nào thì bảo tôi.
 
 ## Khối 8 — hỏi sâu về GIỮ CHO MỌI THỨ CHẠY
 
+- Kiến thức làm việc của tôi (cách phỏng vấn, luật viết sổ dữ liệu, cách thử, định dạng gói) tự cập nhật từ skills.tryopenclaw.io khi máy khởi động và mỗi 6 giờ. Muốn lấy ngay thì nhắn *"cập nhật kỹ năng"*. Bản mới viết cho OpenClaw mới hơn máy bạn thì tôi giữ bản đang có.
 - Khi OpenClaw được nâng phiên bản, tôi tự kiểm mọi agent một lần: agent bạn làm thì build và thử lại, agent nhận từ người khác thì xem còn chạy không (hỏng thì tôi tắt nó và báo "chờ tác giả cập nhật"). Lần đầu bạn nhắn tôi sau đó, tôi báo kết quả.
 - Nếu có lúc **mọi agent im hẳn** (một agent làm hỏng cả máy), lúc đó tôi cũng không trả lời được. Mở Terminal của Platform và dán:
 

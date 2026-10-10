@@ -47,8 +47,11 @@ The bundled `SKILL.md` (in `toc-use-cases/use-case/_platform/skills/<skill>/`) i
 `clawexperts-code/` is the knowledge core of ClawExperts Code, one sub-directory per CE Code skill. Unlike
 Platform Skills, CE Code does not fetch these at runtime: its Bundle carries a byte-identical copy of
 `clawexperts-code/<skill>/` at `skills/<skill>/references/` (and `huong-dan-su-dung.md` is its usage-guide
-skill itself); CE Code's plugin is meant to refresh that copy from here, so a pushed edit reaches installed
-CE Code without re-packaging. The bundled copy lives in
+skill itself). CE Code's plugin refreshes that copy from here — 45 s after the gateway starts, every 6 hours,
+and when the user says "cập nhật kỹ năng" — so a pushed edit reaches installed CE Code without re-packaging
+(allow a few minutes for the raw CDN cache). It only refreshes `references/` of skills already installed,
+skips a package written for a newer OpenClaw than the instance runs, and rejects a package with a playbook
+missing its "viết cho OpenClaw" line or an index pointing at an odd file name. The bundled copy lives in
 `toc-use-cases/use-case/ws-clawexperts-code/agent-clawexperts-code/skills/`; a test there fails while the two
 copies differ — change both in the same sitting.
 
