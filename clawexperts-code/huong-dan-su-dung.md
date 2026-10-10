@@ -70,6 +70,8 @@ Bạn muốn nghe kỹ phần nào thì bảo tôi.
 
 - Mỗi agent có **một link cố định**. Link luôn phát bản bạn **đang cài**: bạn sửa và cài bản mới, hay quay lại bản trước, thì người nhận chạy lại câu lệnh cũ là theo.
 - Ai có link đều tải được agent (không kèm dữ liệu, không kèm khoá). *"Thu hồi link agent sổ đơn"* thì link cũ chết ngay; chia sẻ lại sẽ ra link mới. Người đã cài vẫn giữ agent.
+- Lúc cài, người nhận thấy một dòng cảnh báo nếu agent có sổ dữ liệu hay khoá dịch vụ (phần đó chạy với toàn quyền trên máy họ) — chỉ nên cài agent từ người họ tin.
+- Máy người nhận đã có một agent KHÁC trùng tên thì câu lệnh dừng lại, không đè; máy họ chạy OpenClaw cũ hơn bản agent cần thì cũng dừng và nói rõ. Cập nhật đúng agent đã nhận từ bạn thì chạy như thường.
 - Người nhận gỡ agent bằng câu lệnh trong Terminal của họ: `bash ~/.openclaw/workspace-<tên agent>/install/uninstall.sh` (mọi agent trên máy họ khựng vài giây).
 - Đang chạy trên máy thử nội bộ (địa chỉ `localhost`) thì link chỉ tải được trên chính máy đó.
 

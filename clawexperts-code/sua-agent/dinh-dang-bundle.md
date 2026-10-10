@@ -35,7 +35,8 @@ Gỡ sạch một agent = xoá đúng thư mục đó (sau khi `uninstall.sh` g�
     "id": "ws-binhnt-so-don-hang",
     "description": "Nhận thông tin đơn hàng … hỏi xác nhận trước khi người dùng chốt.",
     "openclawMinVersion": "2026.9.7",
-    "author": "binhnt"
+    "author": "binhnt",
+    "uid": "2f74ce94-7bc3-47b6-a727-207fc478ab0a"
   },
   "package": { "version": "2026.10.09-0216-2" },
   "skills": [
@@ -48,7 +49,10 @@ Gỡ sạch một agent = xoá đúng thư mục đó (sau khi `uninstall.sh` g�
 - `workspace.id` = `ws-<tác giả>-<slug>`. Tên tác giả chọn một lần, dùng cho mọi agent của người đó.
 - `workspace.author` có mặt ⇒ đây là agent cá nhân (không phải use-case chính chủ). Lệnh cứu
   `oc-rollback.sh --safe` chỉ tắt plugin của các bundle có `author` khác `clawexperts`.
-- `openclawMinVersion` — bản OpenClaw thấp nhất chạy được. CE Code dựng cho 9.7 trở lên.
+- `workspace.uid` — căn cước của agent, sinh MỘT lần và giữ qua mọi bản (lưu trong sổ phiên bản của CE Code,
+  không trong nguồn, nên quay lại bản trước vẫn giữ). Hai tác giả trùng tên ws thì uid khác nhau: lệnh cài
+  dừng thay vì đè agent đang có.
+- `openclawMinVersion` — bản OpenClaw đang chạy lúc đóng gói. Máy chạy bản cũ hơn thì lệnh cài dừng.
 - `package.version` — `YYYY.MM.DD-HHMM` theo giờ UTC; đóng gói hai lần trong cùng phút thì thêm `-2`, `-3`.
 - `skills[]` — chỉ skill ở thư mục `skills/` của bundle. Skill riêng của agent nằm trong `agent-<id>/skills/`
   và đi theo thư mục agent.
@@ -108,7 +112,10 @@ Người nhận agent bắt đầu với sổ trống và tự nhập khoá dị
 | Người tạo | `ce_install` — cài bản vừa đóng gói ngay trên máy họ |
 | Người nhận | Terminal: `curl -fsSL …/install/oc-install.sh \| bash -s <link hoặc Drive file id>` |
 
-`oc-install.sh` tải zip, giải nén đè vào `~/.openclaw/`, rồi chạy `install/install.sh`: cài plugin từ
+`oc-install.sh` tải zip rồi, TRƯỚC khi giải nén, kiểm ba thứ trong `bundle.json` của zip: máy đã có agent
+cùng tên mà uid khác ⇒ dừng (`--overwrite` để thay hẳn); `openclawMinVersion` mới hơn bản đang chạy ⇒ dừng
+(`--skip-version-check` để cài vẫn); zip có plugin ⇒ in cảnh báo kèm số plugin. Qua kiểm thì giải nén đè vào
+`~/.openclaw/` và chạy `install/install.sh`: cài plugin từ
 `dist/`, đăng ký agent, gộp overlay, chạy `config.sh post-install`, kiểm lại. Trên 9.7 plugin mới được nạp
 nóng, không cần khởi động lại gateway. Mở cuộc trò chuyện MỚI với agent để thấy bản mới.
 

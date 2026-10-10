@@ -23,6 +23,15 @@ Tên workspace không cần gõ — script đọc thư mục gốc `workspace-ws
 Tuỳ chọn: `--ws ws-<name>` (ép tên), `--no-install` (chỉ tải + giải nén).
 Nguồn cũng nhận URL trực tiếp thay cho Drive file id.
 
+Trước khi giải nén, script đọc `bundle.json` trong zip (bằng node hoặc python3, không cần `jq`):
+
+- **Agent khác trùng tên** — máy đã có `workspace-<ws>/` và cả hai bên có `workspace.uid` nhưng khác nhau
+  ⇒ dừng, không đè. Muốn thay hẳn: thêm `--overwrite`. Thiếu uid ở một bên (bundle cũ) thì cài như trước.
+- **Bản OpenClaw** — `workspace.openclawMinVersion` mới hơn `openclaw --version` ⇒ dừng (plugin dựng cho bản
+  mới có thể nạp lỗi). Chắc chắn vẫn cài: thêm `--skip-version-check`. Không đọc được bản đang chạy thì bỏ qua kiểm.
+- **Plugin** — zip có plugin trong `dist/` ⇒ in một dòng cảnh báo kèm số plugin (plugin đọc được mọi secret
+  của instance). Không chặn.
+
 Nguồn gốc: `toc-use-cases/scripts/deploy/oc-install.sh` — sửa ở đó rồi copy sang đây.
 
 ## oc-rollback.sh — cứu instance khi gateway không lên vì plugin của agent cá nhân
