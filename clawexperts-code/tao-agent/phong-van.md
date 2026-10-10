@@ -1,4 +1,4 @@
-# Phỏng vấn — hỏi gì, hỏi thế nào — viết cho OpenClaw 2026.9.7
+# Phỏng vấn — hỏi gì, hỏi thế nào — viết cho OpenClaw 2026.9.9
 
 Mục tiêu: đủ để viết charter, không hơn. Người trả lời hiểu việc của họ, không hiểu kỹ thuật.
 

@@ -1,4 +1,4 @@
-# Kịch bản thử agent — viết cho OpenClaw 2026.9.7
+# Kịch bản thử agent — viết cho OpenClaw 2026.9.9
 
 Kịch bản thử là hội thoại mẫu chạy trên agent THẬT, rồi chấm đạt/trượt. Bundle mang kịch bản theo, nên người
 nhận agent cũng chạy được: `node install/eval.mjs` trong thư mục cài của agent.

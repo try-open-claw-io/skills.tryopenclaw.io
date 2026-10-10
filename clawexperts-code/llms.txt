@@ -1,6 +1,6 @@
 # ClawExperts Code — lõi kiến thức
 
-Playbook của ClawExperts Code (CE Code): agent giúp End-User tự tạo, sửa, thử, đóng gói và chia sẻ agent của riêng họ (Personal Agent Chat) trên instance OpenClaw, chỉ bằng chat. Viết cho OpenClaw 2026.9.7.
+Playbook của ClawExperts Code (CE Code): agent giúp End-User tự tạo, sửa, thử, đóng gói và chia sẻ agent của riêng họ (Personal Agent Chat) trên instance OpenClaw, chỉ bằng chat. Viết cho OpenClaw 2026.9.9.
 
 Mỗi thư mục con ứng với một skill của CE Code. Bundle của CE Code mang bản chụp của thư mục đó ở `skills/<skill>/references/` (giống hệt từng byte) để dùng khi không tải được bản web.
 

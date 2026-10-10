@@ -1,4 +1,4 @@
-# Định dạng Bundle — viết cho OpenClaw 2026.9.7
+# Định dạng Bundle — viết cho OpenClaw 2026.9.9
 
 Bundle là MỘT tệp zip chứa trọn một agent, cài được lên bất kỳ instance OpenClaw nào đủ bản. Personal Agent
 Chat dùng đúng định dạng của use-case chính chủ trên Marketplace — không có định dạng "cá nhân" riêng.
@@ -34,7 +34,7 @@ Gỡ sạch một agent = xoá đúng thư mục đó (sau khi `uninstall.sh` g�
   "workspace": {
     "id": "ws-binhnt-so-don-hang",
     "description": "Nhận thông tin đơn hàng … hỏi xác nhận trước khi người dùng chốt.",
-    "openclawMinVersion": "2026.9.7",
+    "openclawMinVersion": "2026.9.9",
     "author": "binhnt",
     "uid": "2f74ce94-7bc3-47b6-a727-207fc478ab0a"
   },

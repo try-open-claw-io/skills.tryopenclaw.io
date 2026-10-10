@@ -1,6 +1,6 @@
 # tao-agent — tạo agent mới
 
-Playbook cho skill `tao-agent` của ClawExperts Code: phỏng vấn người dùng, viết charter, dựng agent. Viết cho OpenClaw 2026.9.7. Bản chụp trong Bundle CE Code: `skills/tao-agent/references/`.
+Playbook cho skill `tao-agent` của ClawExperts Code: phỏng vấn người dùng, viết charter, dựng agent. Viết cho OpenClaw 2026.9.9. Bản chụp trong Bundle CE Code: `skills/tao-agent/references/`.
 
 - [phong-van.md](phong-van.md) — hỏi gì, hỏi thế nào để đủ viết charter; người trả lời hiểu việc của họ, không hiểu kỹ thuật
 - [charter-mau.md](charter-mau.md) — mẫu charter: bản tệp đầy đủ và bản tóm tắt trình duyệt trong chat

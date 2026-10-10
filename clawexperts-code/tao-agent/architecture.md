@@ -1,4 +1,4 @@
-# Kiến trúc nền tảng — viết cho OpenClaw 2026.9.7
+# Kiến trúc nền tảng — viết cho OpenClaw 2026.9.9
 
 Đọc khi: phỏng vấn gặp yêu cầu vượt khả năng của agent; người dùng hỏi "sao agent không làm được X"; trước
 khi định đụng vào bất cứ thứ gì ngoài `projects/` của CE Code.
@@ -29,12 +29,17 @@ khi định đụng vào bất cứ thứ gì ngoài `projects/` của CE Code.
 ├── extensions/<plugin-id>/           # plugin đã cài
 ├── agents/<id>/agent/                # phiên chat của từng agent (SQLite)
 └── uc-data/
-    ├── ws-clawexperts-code/          # workspace của CE Code: projects/, charters/, builds/, state/, skills/
+    ├── ws-clawexperts-code/          # KHO của CE Code: projects/, charters/, builds/, state/ (ngoài workspace)
     └── ws-<tác giả>-<slug>/          # dữ liệu của một agent: data.sqlite, secrets.json (quyền 600)
 ```
 
 Nguồn agent nằm ở `uc-data/ws-clawexperts-code/projects/<ws>/`. Sửa ở đó rồi đóng gói và cài thành bản
 mới. Sửa thẳng trong `workspace-ws-*/` thì không có phiên bản để quay lại, và lần cài sau ghi đè mất.
+
+Workspace của một agent là thư mục `agent-<id>/` trong bản đang cài — kể cả CE Code. Dữ liệu cần sống qua
+các lần cài lại (sổ dữ liệu, kho của CE Code) luôn ở `uc-data/`, NGOÀI workspace: OpenClaw 9.9 dọn workspace
+mỗi khi xoá agent, `uc-data/` thì không ai dọn. Kho của CE Code còn được chụp ra `backups/clawexperts-code/`;
+cài lại mà kho trống thì tự khôi phục từ ảnh chụp.
 
 ## Một Personal Agent Chat gồm gì
 

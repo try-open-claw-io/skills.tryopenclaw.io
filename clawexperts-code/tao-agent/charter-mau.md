@@ -1,4 +1,4 @@
-# Mẫu charter — viết cho OpenClaw 2026.9.7
+# Mẫu charter — viết cho OpenClaw 2026.9.9
 
 Hai dạng của cùng một nội dung: **tệp** (ghi xuống `charters/<slug>.md`, đầy đủ, là thứ công cụ
 dựng đọc sau này) và **bản tóm tắt** (trình trong chat để duyệt). Giữ đúng tên và thứ tự mục.

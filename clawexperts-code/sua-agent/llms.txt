@@ -1,5 +1,5 @@
 # sua-agent — sửa, đóng gói, cài, chia sẻ
 
-Playbook cho skill `sua-agent` của ClawExperts Code. Viết cho OpenClaw 2026.9.7. Bản chụp trong Bundle CE Code: `skills/sua-agent/references/`.
+Playbook cho skill `sua-agent` của ClawExperts Code. Viết cho OpenClaw 2026.9.9. Bản chụp trong Bundle CE Code: `skills/sua-agent/references/`.
 
 - [dinh-dang-bundle.md](dinh-dang-bundle.md) — định dạng Bundle: bố cục zip, bundle.json, overlay, install/, những gì không bao giờ vào Bundle, phiên bản, cài, gỡ

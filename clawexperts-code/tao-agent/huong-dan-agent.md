@@ -1,4 +1,4 @@
-# Hướng dẫn dùng của agent — viết cho OpenClaw 2026.9.7
+# Hướng dẫn dùng của agent — viết cho OpenClaw 2026.9.9
 
 Mọi agent CE Code dựng đều có một skill `huong-dan-su-dung`. Người dùng hỏi "bạn làm được gì", "dùng thế
 nào", "help", hay hỏi "agent làm được X không" thì agent đọc skill này rồi trả lời. Thiếu nó, agent tự kể

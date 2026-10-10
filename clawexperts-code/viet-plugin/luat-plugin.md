@@ -1,4 +1,4 @@
-# Luật viết plugin sổ dữ liệu — viết cho OpenClaw 2026.9.7
+# Luật viết plugin sổ dữ liệu — viết cho OpenClaw 2026.9.9
 
 Plugin chạy BÊN TRONG gateway, chung tiến trình với mọi agent trên instance. Một dòng code hỏng
 có thể làm chậm hay lỗi cả instance — vì thế khuôn đã làm sẵn phần khó, bạn chủ yếu KHAI BÁO.
@@ -92,10 +92,11 @@ export const CONNECTORS: ConnectorDecl[] = [{ app: "googlesheets", label: "Googl
 
 ## Tài liệu đúng bản đang chạy
 
-`/app/docs` trong container (đã xác minh 08/10 trên image tryopenclaw 2026.9.7: `openclaw` là wrapper gọi
-`/app/openclaw.mjs`). Ghi chú phát hành: `/app/docs/releases/<bản>.md` + `index.md`; image không có
-CHANGELOG.md. Luật này viết cho bản ghi ở dòng đầu — máy chạy bản mới hơn thì `ce_health` cảnh báo; tra
-`/app/docs/plugins/` trước khi viết tool riêng.
+`/app/docs` trong container (`openclaw` là wrapper gọi `/app/openclaw.mjs`; bản đang chạy: `openclaw --version`).
+Ghi chú phát hành ở `/app/docs/releases/` CÓ THỂ chưa có bản đang chạy — image 2026.9.9 chỉ có tới 2026.9.6 — và
+image không có CHANGELOG.md: khi đó tra thẳng `/app/docs/plugins/` và chứng minh bằng `ce_build` (test + nạp thử).
+Luật này viết cho bản ghi ở dòng đầu — máy chạy bản mới hơn thì `ce_health` cảnh báo; tra `/app/docs/plugins/`
+trước khi viết tool riêng.
 
 ## `ce_build` làm gì (để hiểu log lỗi)
 
