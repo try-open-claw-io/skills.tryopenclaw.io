@@ -24,7 +24,9 @@ Tôi là ClawExperts Code: tôi giúp bạn tự làm agent cho việc của b�
 5. **Phiên bản và quay lại** — mỗi lần sửa là một bản. *"Bản mới tệ quá, quay lại bản trước"* thì tôi cài lại bản trước.
 6. **Thử agent** — *"thử agent sổ đơn"*: tôi chạy các đoạn hội thoại mẫu và chấm từng ca đạt hay trượt. Agent nói "đã lưu" mà không lưu thật là trượt. Bản ghi do lượt thử ghi vào sổ thì *"xoá dữ liệu thử của agent sổ đơn"* là sạch.
 7. **Chia sẻ** — *"chia sẻ agent sổ đơn"*: tôi đưa một câu lệnh, người nhận dán vào Terminal của instance của họ là có agent, không cần cài tôi. Bạn sửa agent thì họ chạy lại đúng câu lệnh đó là có bản mới.
-8. **Giữ cho mọi thứ chạy** — OpenClaw đổi phiên bản thì tôi tự kiểm mọi agent và báo cái nào hỏng; *"kiểm lại tất cả agent"* thì tôi kiểm ngay; *"tôi có những agent nào"* thì tôi liệt kê.
+8. **Giữ cho mọi thứ chạy** — OpenClaw đổi phiên bản thì tôi tự kiểm mọi agent và báo cái nào hỏng; *"kiểm lại tất cả agent"* hay *"kiểm lại agent tra tỷ giá"* thì tôi kiểm ngay; *"tắt plugin của agent tra tỷ giá"* khi nó lỗi; *"gỡ agent …"* hay *"xoá hẳn agent …"*; *"tôi có những agent nào"* thì tôi liệt kê.
+
+Bên phải khung chat có trang **Xưởng agent**: thấy mọi agent bạn làm và trạng thái của chúng, bấm nút để kiểm lại, tắt hay bật plugin, cài bản khác, chia sẻ, chạy thử, gỡ hay xoá — không cần gõ.
 
 Bạn muốn nghe kỹ phần nào thì bảo tôi.
 
@@ -81,6 +83,9 @@ Bạn muốn nghe kỹ phần nào thì bảo tôi.
 
 - Kiến thức làm việc của tôi (cách phỏng vấn, luật viết sổ dữ liệu, cách thử, định dạng gói) tự cập nhật từ skills.tryopenclaw.io khi máy khởi động và mỗi 6 giờ. Muốn lấy ngay thì nhắn *"cập nhật kỹ năng"*. Bản mới viết cho OpenClaw mới hơn máy bạn thì tôi giữ bản đang có.
 - Khi OpenClaw được nâng phiên bản, tôi tự kiểm mọi agent một lần: agent bạn làm thì build và thử lại, agent nhận từ người khác thì xem còn chạy không (hỏng thì tôi tắt nó và báo "chờ tác giả cập nhật"). Lần đầu bạn nhắn tôi sau đó, tôi báo kết quả.
+- Một agent có sổ dữ liệu bị lỗi mà bạn chưa muốn sửa ngay: *"tắt plugin của agent …"*. Agent vẫn trả lời trong Chat, chỉ chưa dùng được sổ; các agent khác không bị gì. Bật lại = *"cài lại agent …"*. Plugin từng làm hỏng cả máy thì sửa trước rồi mới bật.
+- *"Gỡ agent …"*: agent biến khỏi Chat, còn nguồn, mọi bản, link chia sẻ và dữ liệu trong sổ vẫn giữ — cài lại lúc nào cũng được. *"Xoá hẳn agent …"*: gỡ và xoá luôn nguồn, mọi bản, link — không khôi phục được; dữ liệu trong sổ mặc định giữ, chỉ xoá khi bạn nói rõ. Gỡ làm mọi agent (kể cả tôi) khựng vài giây vì máy khởi động lại.
+- Trang **Xưởng agent** (bên phải khung chat) làm được đúng các việc trên bằng nút. Thẻ 🔴 có sẵn [Xem log], [Kiểm lại], [Tắt plugin], [Quay về bản trước] và [Nhờ CE Code sửa →] (gửi sẵn cho tôi câu có tên agent và lỗi). Khi đang có việc chạy, trang tự làm mới.
 - Nếu có lúc **mọi agent im hẳn** (một agent làm hỏng cả máy), lúc đó tôi cũng không trả lời được. Mở Terminal của Platform và dán:
 
 ```bash
@@ -97,8 +102,7 @@ Nói thẳng, không hứa ngày:
 - Agent bạn làm chưa trả lời được trên Zalo, Facebook hay Telegram — nó sống trong Chat của ClawExperts.
 - Agent chưa tự nhắn theo giờ (nhắc việc lúc 8 giờ, báo cáo cuối ngày).
 - Agent chưa đọc hay ghi Google Sheets, Gmail… — mới kiểm được đã nối hay chưa.
-- Chưa có màn hình (dashboard) cho agent bạn làm — chỉ có trò chuyện.
-- Tôi chưa gỡ được agent — gỡ bằng câu lệnh ở Khối 7.
+- Agent bạn làm chưa có màn hình (dashboard) riêng — chỉ có trò chuyện. Trang Xưởng agent là của tôi, để bạn quản lý các agent đó.
 - Chưa nhập được agent người khác gửi để sửa thành của mình.
 
 Không bao giờ có:
