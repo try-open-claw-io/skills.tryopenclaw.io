@@ -11,7 +11,7 @@ có thể làm chậm hay lỗi cả instance — vì thế khuôn đã làm s�
 | `src/requirements.ts` | bạn, khi charter mục 5 cần secret hay ứng dụng |
 | `src/tools-custom.ts` | bạn, chỉ khi thật cần tool riêng (hiếm) |
 | `src/config.ts`, `openclaw.plugin.json`, `package.json` | công cụ — đừng sửa |
-| `src/store.ts`, `src/secrets.ts`, `src/connectors.ts`, `src/tools.ts`, `src/text.ts`, `src/types.ts`, `index.ts`, test | khuôn — đừng sửa |
+| `src/store.ts`, `src/secrets.ts`, `src/connectors.ts`, `src/tools.ts`, `src/text.ts`, `src/types.ts`, `index.ts`, test của khuôn | khuôn — đừng sửa: `ce_build` chép lại bản khuôn mới mỗi lần build |
 
 ## Khai báo dữ liệu (`src/collections.ts`)
 
@@ -80,7 +80,10 @@ export const CONNECTORS: ConnectorDecl[] = [{ app: "googlesheets", label: "Googl
   và KHÔNG đưa key vào chữ trả về hay log.
 - KHÔNG `child_process`, KHÔNG `setInterval` (plugin `register()` chạy hai lần trong gateway: mọi bộ đếm giờ sẽ nhân đôi).
 - KHÔNG chặn tiến trình: không vòng lặp nặng, không `*Sync` trên tệp lớn.
-- Viết test cho tool riêng trong `src/*.test.ts` bằng `node:test` + `node:assert/strict`.
+- Viết test cho tool riêng trong `src/*.test.ts` bằng `node:test` + `node:assert/strict`, đặt tên tệp KHÁC test của
+  khuôn (`tools.test.ts`, `requirements.test.ts`, `collections.test.ts`, `trial.test.ts`) — tệp trùng tên bị chép đè.
+- Bản ghi lưu bằng tool `_them` trong phiên chạy thử (`agent:<id>:eval:<ca>:<lượt>`) mang dấu "thử" để `ce_test_clean`
+  xoá đúng chúng. Tool riêng KHÔNG ghi vào sổ: ghi ngoài `_them` thì bản ghi thử không có dấu.
 
 ## TypeScript chạy thẳng bằng Node (không có Bun trong container)
 
@@ -96,12 +99,15 @@ CHANGELOG.md. Luật này viết cho bản ghi ở dòng đầu — máy chạy 
 
 ## `ce_build` làm gì (để hiểu log lỗi)
 
-1. Chặn khi còn dấu CE_FILL hay có chuỗi trông như secret.
-2. `npm install` chỉ khi `package.json` có `dependencies` (thư viện npm được gói vào `dist`).
-3. `node --test "src/**/*.test.ts"` — gồm test khói chạy trên khai báo THẬT của bạn. Đỏ thì dừng.
-4. Đọc danh sách tool, ghi `contracts.tools` (gateway bỏ im lặng tool không khai ở đây).
-5. esbuild → `dist/<id>.zip` (layout `package/…`). Chỉ thay zip cũ khi mọi bước trên xanh.
-6. Viết mục "Công cụ" (AGENTS.md), "Giới hạn của bản này" (SOUL.md) và "Khối Dữ liệu" của skill hướng
+1. Làm mới tệp khuôn từ bản khuôn đi kèm ClawExperts Code đang cài (log "Làm mới khuôn: …"). Không đụng
+   `collections.ts`, `requirements.ts`, `tools-custom.ts`, `config.ts`, `package.json`, `openclaw.plugin.json`
+   và test riêng. Sửa tay tệp khuôn sẽ mất ở lần build sau.
+2. Chặn khi còn dấu CE_FILL hay có chuỗi trông như secret.
+3. `npm install` chỉ khi `package.json` có `dependencies` (thư viện npm được gói vào `dist`).
+4. `node --test "src/**/*.test.ts"` — gồm test khói chạy trên khai báo THẬT của bạn. Đỏ thì dừng.
+5. Đọc danh sách tool, ghi `contracts.tools` (gateway bỏ im lặng tool không khai ở đây).
+6. esbuild → `dist/<id>.zip` (layout `package/…`). Chỉ thay zip cũ khi mọi bước trên xanh.
+7. Viết mục "Công cụ" (AGENTS.md), "Giới hạn của bản này" (SOUL.md) và "Khối Dữ liệu" của skill hướng
    dẫn dùng (`agent-<id>/skills/huong-dan-su-dung/SKILL.md`). Tool sổ (đuôi `_them/_tim/_sua/_xoa/_tong`)
    ghi vào "việc làm được với sổ"; tool riêng ghi vào "việc khác làm được".
 

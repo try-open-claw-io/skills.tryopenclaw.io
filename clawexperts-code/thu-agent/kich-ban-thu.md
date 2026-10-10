@@ -44,8 +44,12 @@ ngay khi đọc, không chạy ca nào.
   `node install/eval.mjs [--only ca-1,ca-2] [--out /tmp/eval.md]`.
 - Mỗi ca chạy trong một phiên chat MỚI; các lượt trong ca nối tiếp nhau trong cùng phiên. Mỗi lượt có thể
   mất tới một phút hoặc hơn.
-- Thử chạy trên agent THẬT. Agent có sổ dữ liệu thì ca lưu GHI vào sổ thật, nằm lẫn với dữ liệu thật. Vì
-  vậy `ce_test` dừng ở 🟡 để hỏi người dùng trước; chỉ chạy tiếp với `confirm_writes: true` khi họ đồng ý.
+- Thử chạy trên agent THẬT. Agent có sổ dữ liệu thì ca lưu GHI vào sổ thật. Bản ghi lưu trong phiên thử mang
+  dấu "thử" (khuôn sổ nhận ra session key `agent:<id>:eval:<ca>:<lượt>` của bộ chạy); `ce_test_clean` xoá đúng
+  chúng, không đụng dữ liệu thật. Agent dựng trước khi có dấu thì bản ghi thử nằm lẫn — build lại một lần.
+  Dù vậy `ce_test` vẫn dừng ở 🟡 để hỏi người dùng trước; chỉ chạy tiếp với `confirm_writes: true` khi họ đồng ý.
+- Dấu chỉ có ở bản ghi LƯU MỚI trong phiên thử. Ca sửa hay xoá một bản ghi thật thì không hoàn tác được: ca
+  sửa/xoá chỉ nhắm bản ghi do chính ca đó vừa lưu.
 
 ## Chấm
 
@@ -55,8 +59,8 @@ chấm câu chữ — người chấm (CE Code, hoặc người) đọc rubric.
 - **ĐẠT** khi phần tool ✅ (hoặc ca không khai tool) VÀ câu trả lời khớp rubric.
 - **TRƯỢT** trong mọi trường hợp khác. Phần tool ❌ là trượt, dù câu trả lời nghe ổn: agent nói "đã lưu"
   mà không gọi `…_them` là lỗi nặng nhất.
-- Kết bằng "x/y ca đạt". Có ca trượt thì đề nghị cách sửa, không tự sửa khi người dùng chưa đồng ý. Ca có
-  ghi thì nhắc người dùng các bản ghi thử đang nằm trong sổ.
+- Kết bằng "x/y ca đạt". Có ca trượt thì đề nghị cách sửa, không tự sửa khi người dùng chưa đồng ý. Còn bản
+  ghi thử trong sổ thì nêu số # và hỏi có xoá không (`ce_test_clean`).
 
 ## Ca thử tốt là ca có thể trượt
 
