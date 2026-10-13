@@ -6,8 +6,8 @@ Mỗi thư mục con ứng với một skill của CE Code. Bundle của CE Code
 
 ## Thư mục
 
-- [tao-agent/](tao-agent/llms.txt) — tạo agent mới: phỏng vấn, mẫu charter, hướng dẫn dùng của agent, kiến trúc nền tảng (agent làm được gì, không được đụng gì)
-- [viet-plugin/](viet-plugin/llms.txt) — luật viết plugin sổ dữ liệu: khai báo dữ liệu, secret, ứng dụng, tool riêng
+- [tao-agent/](tao-agent/llms.txt) — tạo agent mới: phỏng vấn, mẫu charter, hướng dẫn dùng của agent, kiến trúc nền tảng (năng lực agent làm được: kênh, lịch, ứng dụng, chạy nền; luật không phá agent khác)
+- [viet-plugin/](viet-plugin/llms.txt) — luật viết plugin: khai báo dữ liệu, secret, ứng dụng, tool riêng, chạy nền
 - [thu-agent/](thu-agent/llms.txt) — viết kịch bản thử agent (cùng schema với bộ chạy eval)
 - [sua-agent/](sua-agent/llms.txt) — định dạng Bundle, phiên bản, cài, chia sẻ, quay lại, gỡ
 

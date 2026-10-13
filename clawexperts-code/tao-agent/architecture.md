@@ -1,7 +1,7 @@
 # Kiến trúc nền tảng — viết cho OpenClaw 2026.9.9
 
-Đọc khi: phỏng vấn gặp yêu cầu vượt khả năng của agent; người dùng hỏi "sao agent không làm được X"; trước
-khi định đụng vào bất cứ thứ gì ngoài `projects/` của CE Code.
+Đọc khi: agent cần kênh, lịch, ứng dụng hay chạy nền; người dùng hỏi agent làm được tới đâu; trước khi định
+đụng vào bất cứ thứ gì ngoài `projects/` của CE Code.
 
 ## Các lớp của ClawExperts
 
@@ -11,8 +11,8 @@ khi định đụng vào bất cứ thứ gì ngoài `projects/` của CE Code.
 | **Platform-BE** | Quản lý instance, danh mục use-case, cài use-case từ Marketplace, đẩy cấu hình ứng dụng (connector) vào instance | Không. Personal Agent Chat cài và chia sẻ hoàn toàn ngoài BE (xem "Cài và chia sẻ"). |
 | **Instance** | Một container OpenClaw của End-User: gateway + mọi agent + mọi plugin, chung một tiến trình | Agent sống ở đây. |
 | **Renderer** | Bộ vẽ Agent Dashboard của use-case từ khối `ui:` trong Bundle | Chưa. Agent có màn hình riêng là pha sau, cần Platform-BE. |
-| **UC-Service** | Dịch vụ ngoài nối kênh (Facebook, Zalo…) cho use-case chính chủ | Không. |
-| **Connector** | Ứng dụng người dùng đã nối ở Settings → Ứng dụng (Google Sheets, Gmail…), đi qua một MCP server do Platform-BE cấu hình | Bản này chỉ kiểm đã nối hay chưa. |
+| **UC-Service** | Dịch vụ ngoài nối kênh cho use-case chính chủ | Không. Phần nối kênh của agent cá nhân chạy ngay trong instance (tiến trình nền của plugin). |
+| **Connector** | Ứng dụng người dùng đã nối ở Settings → Ứng dụng (Google Sheets, Drive, Gmail…), đi qua một MCP server do Platform-BE cấu hình | Có: đọc ghi qua connector. |
 
 ## Bố cục một instance
 
@@ -47,31 +47,45 @@ cài lại mà kho trống thì tự khôi phục từ ảnh chụp.
   prompt: AGENTS.md, SOUL.md, IDENTITY.md, USER.md. Không nạp TOOLS.md — công cụ ghi trong AGENTS.md.
 - **Skill riêng** trong `agent-<id>/skills/`, tối thiểu là `huong-dan-su-dung` (xem `huong-dan-agent.md`).
   Overlay có `agents.entries.<id>.skills` liệt kê đúng các skill đó.
-- **Công cụ tối thiểu**: profile `minimal` + `read` + tool plugin của chính nó. Không có `exec`. Chỉ
-  CE Code có `exec`.
-- **Plugin (tuỳ chọn)**: sổ dữ liệu, khoá dịch vụ, kiểm ứng dụng. Plugin chạy TRONG gateway, chung tiến
-  trình với mọi agent: plugin hỏng có thể làm chậm hoặc sập cả instance.
+- **Công cụ tối thiểu**: profile `minimal` + `read` + tool plugin của chính nó + đúng công cụ các năng lực
+  của nó cần. Không có `exec`. Chỉ CE Code có `exec`.
+- **Plugin (tuỳ chọn)**: sổ dữ liệu, khoá dịch vụ, ứng dụng, tiến trình nền (nghe Zalo, lịch, watchdog).
+  Plugin chạy TRONG gateway, chung tiến trình với mọi agent: plugin hỏng có thể làm chậm hoặc sập cả instance.
+- **Năng lực (tuỳ chọn)**: kênh, lịch, ứng dụng, MCP ngoài, nhiều agent, browser, sinh tệp, đọc ảnh quét —
+  xem §Năng lực.
 
-## Không được đụng
+## Năng lực
 
-- `openclaw.json` ngoài overlay của chính agent (overlay được gộp lúc cài, bằng `apply-overrides.mjs`).
-- Agent khác: agent chính chủ của ClawExperts, agent người khác gửi, agent main.
-- Kênh (`channels`, `bindings`) và lịch chạy (`cron`) của instance.
-- Secret của instance: env, hồ sơ đăng nhập model, token của gateway.
-- Trong plugin: `child_process`, `setInterval`, đọc `process.env`, mở tệp ngoài kho của agent.
-- Khởi động lại gateway khi người dùng chưa đồng ý: mọi agent trên instance ngừng trả lời một lúc.
+Agent cá nhân làm được mọi loại việc các use-case của ClawExperts đang làm, trừ màn hình riêng (dashboard):
 
-## Vì sao bản này chưa làm được một số việc
-
-| Việc | Vì sao chưa |
+| Năng lực | Cách nền tảng làm |
 |---|---|
-| Trả lời trên Zalo, Facebook, Telegram | Kênh là tài nguyên chung của instance. Gắn agent vào kênh là sửa định tuyến toàn instance, dễ giành tuyến với agent khác. |
-| Tự nhắn theo giờ | Lịch chạy nằm ở mức gateway, chung mọi agent; chưa có khuôn an toàn cho agent tự dựng. |
-| Đọc, ghi Google Sheets, Gmail | Connector mới kiểm được đã nối hay chưa; đọc ghi qua connector chưa có khuôn đã kiểm. |
-| Màn hình riêng (dashboard) | Platform-FE chỉ vẽ dashboard cho use-case cài qua Platform-BE. |
-| Gửi tin, email ra ngoài | Cùng lý do với kênh và connector. |
+| Kênh | Zalo cá nhân (openzca: nghe, hoặc trả lời), Zalo Bot (kênh `zalo` có sẵn, nối bằng cấu hình), bot Telegram (account + binding riêng của agent). Facebook Messenger: đang làm. |
+| Lịch | Cron của gateway gọi lượt agent theo giờ; luôn khai `tz` Asia/Ho_Chi_Minh (mặc định là giờ máy chủ UTC — lệch 7 giờ). |
+| Gửi tin ra ngoài | Lượt lịch hay plugin gửi kết quả ra kênh của chính agent. |
+| Ứng dụng | Đọc ghi Google Sheets, Drive, Gmail… qua connector đã nối. |
+| MCP ngoài | Khai server MCP bằng cấu hình (`mcp.servers`), không viết tool bọc. |
+| Chạy nền | Plugin dùng `child_process`, `setInterval` (vd listener nghe Zalo, watchdog). |
+| Khác | Nhiều agent phối hợp, mở trang web (browser), sinh .docx / .xlsx, đọc ảnh quét. |
 
-Người dùng cần những việc này: nói thẳng "bản này chưa làm được", không hứa ngày, không "được nếu…".
+Mỗi năng lực có khuôn (phần tất định: overlay, lệnh con của `install/config.sh`, nguồn plugin) và bài kiến thức
+(cách repo làm, ws mẫu, bẫy đã gặp). Charter ghi năng lực cần ở mục "Năng lực cần".
+
+## Không phá agent khác
+
+Instance là nhà chung: kênh, binding, lịch, plugin allowlist, tài khoản Zalo là tài nguyên chung. Luật:
+
+- `openclaw.json` chỉ đổi qua overlay của chính agent (gộp lúc cài bằng `apply-overrides.mjs`) — không sửa tay, không
+  đổi khoá toàn instance ngoài danh sách cho phép.
+- Không giành account kênh, binding, bot hay lịch của agent khác. Binding thiếu `accountId` = account `default`.
+- Một tài khoản Zalo chỉ một listener: tài khoản đã có agent khác nghe thì đọc ké tin agent kia đang nghe, không
+  dựng listener thứ hai (hai listener đá nhau).
+- Id plugin, id lịch mang tên agent; không trùng của ws khác.
+- Agent khác: agent chính chủ của ClawExperts, agent người khác gửi, agent main — không sửa tệp của chúng.
+- Secret của instance (env, hồ sơ đăng nhập model, token của gateway) — không đọc, không in.
+- Khởi động lại gateway (cần khi gắn kênh mới, đổi env) chỉ khi người dùng đã đồng ý: mọi agent ngừng trả lời một lúc.
+- Trong plugin: không đọc `process.env`, không mở tệp ngoài kho của agent (trừ đúng thứ khuôn năng lực cho phép, vd
+  kho tin của openzca, chỉ đọc).
 
 ## Cài và chia sẻ
 

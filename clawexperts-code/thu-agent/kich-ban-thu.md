@@ -32,8 +32,8 @@ ngay khi đọc, không chạy ca nào.
 - Agent có sổ dữ liệu: ca lưu → `tools_expected: [<loại>_them]`; ca hỏi "bao nhiêu / tổng" →
   `[<loại>_tong]`; ca tìm → `[<loại>_tim]`. Agent không có sổ: bỏ hẳn `tools_expected` / `tools_forbidden`.
 - Nên có một ca "chưa xác nhận thì không lưu": một lượt nhắn đơn, `tools_forbidden: [<loại>_them]`.
-- Giữ nguyên hai ca có sẵn: `ban-lam-duoc-gi` ("bạn làm được gì?") và `viec-chua-co` ("bạn trả lời khách
-  trên Zalo được không?").
+- Giữ nguyên hai ca có sẵn: `ban-lam-duoc-gi` ("bạn làm được gì?") và `viec-chua-co` ("bạn có màn hình riêng
+  (dashboard) để tôi xem số liệu không?").
 - Tên, số điện thoại trong kịch bản là GIẢ (vd 0900000001). Không chép dữ liệu thật của khách.
 - Kịch bản là nguồn: sửa kịch bản thì đóng gói và cài lại như mọi lần sửa.
 

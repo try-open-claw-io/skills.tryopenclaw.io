@@ -78,8 +78,23 @@ export const CONNECTORS: ConnectorDecl[] = [{ app: "googlesheets", label: "Googl
   toàn cục.
 - Gọi mạng CHỈ tới đúng dịch vụ của secret/ứng dụng đã khai, dùng `fetch` có `AbortController` (≤ 20 giây),
   và KHÔNG đưa key vào chữ trả về hay log.
-- KHÔNG `child_process`, KHÔNG `setInterval` (plugin `register()` chạy hai lần trong gateway: mọi bộ đếm giờ sẽ nhân đôi).
 - KHÔNG chặn tiến trình: không vòng lặp nặng, không `*Sync` trên tệp lớn.
+
+## Chạy nền: `child_process`, `setInterval` (được dùng — kèm luật)
+
+Năng lực như nghe Zalo, lịch, watchdog cần tiến trình con hay bộ đếm giờ. Được dùng, nhưng:
+- `register()` chạy HAI LẦN trong gateway (và chạy cả khi lệnh CLI `openclaw …` nạp plugin) ⇒ mọi `setInterval`,
+  listener, tiến trình con sẽ NHÂN ĐÔI nếu khởi trong `register()` mà không giành lượt. Giành lượt ở mức KHO,
+  không ở biến toàn cục: tệp khoá trong kho của agent (`uc-data/<ws>/`), tạo bằng cờ độc quyền (`wx`), ghi pid +
+  giờ; khoá của pid đã chết hay quá hạn thì gỡ rồi giành lại. Chỉ khởi việc nền khi
+  `process.title.includes("gateway")` — tiến trình CLI không được dựng listener.
+- Mọi bộ đếm giờ gọi `.unref()` để không giữ tiến trình sống.
+- `child_process`: dùng `spawn` / `execFile` với mảng tham số — KHÔNG `exec` chuỗi, KHÔNG `shell: true`, KHÔNG ghép
+  chữ người dùng vào lệnh. Luôn có giới hạn thời gian; tiến trình dài hạn (listener) chạy tách hẳn (`detached` +
+  `unref`) và ghi pid ra kho để lần sau tìm lại.
+- Chỉ chạy đúng chương trình khuôn năng lực đã khai (vd `openzca` bản ghim). Không tải và chạy mã từ mạng.
+- Dữ liệu ngoài kho của agent (vd kho tin của openzca) chỉ ĐỌC, mở ở chế độ chỉ đọc.
+- Khuôn năng lực đã làm sẵn phần này (khoá, dựng lại listener, gỡ khoá kẹt): dùng khuôn, đừng tự viết lại.
 - Viết test cho tool riêng trong `src/*.test.ts` bằng `node:test` + `node:assert/strict`, đặt tên tệp KHÁC test của
   khuôn (`tools.test.ts`, `requirements.test.ts`, `collections.test.ts`, `trial.test.ts`) — tệp trùng tên bị chép đè.
 - Bản ghi lưu bằng tool `_them` trong phiên chạy thử (`agent:<id>:eval:<ca>:<lượt>`) mang dấu "thử" để `ce_test_clean`

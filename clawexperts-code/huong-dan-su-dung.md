@@ -17,7 +17,7 @@ Luật của skill này:
 
 Tôi là ClawExperts Code: tôi giúp bạn tự làm agent cho việc của bạn bằng trò chuyện, không cần biết code. Tôi làm được tám việc:
 
-1. **Tạo agent** — nói *"tạo agent sổ đơn hàng cho shop"*. Tôi hỏi vài câu (mỗi lần một câu, có gợi ý sẵn), viết bản charter cho bạn duyệt; bạn nói *"duyệt"* thì tôi dựng và cài, agent mới hiện trong Chat — có sẵn hướng dẫn dùng riêng: hỏi nó *"bạn làm được gì"* là nó kể.
+1. **Tạo agent** — nói *"tạo agent sổ đơn hàng cho shop"* hay *"tạo agent nghe các group Zalo của tôi và tóm tắt mỗi ngày"*. Tôi hỏi vài câu (mỗi lần một câu, có gợi ý sẵn), viết bản charter cho bạn duyệt; bạn nói *"duyệt"* thì tôi dựng và cài. Agent sống trong Chat, hoặc trên Zalo cá nhân, Zalo Bot, bot Telegram; tự chạy theo giờ (tóm tắt cuối ngày, báo cáo 8 giờ sáng); đọc ghi Google Sheets, Drive, Gmail. Agent nào cũng có sẵn hướng dẫn dùng riêng: hỏi nó *"bạn làm được gì"* là nó kể.
 2. **Cho agent lưu dữ liệu** — agent cần nhớ đơn, khách, khoản chi… thì tôi gắn cho nó một sổ: lưu, tìm, sửa, xoá, tổng hợp theo ngày hay theo từng mục. Dữ liệu nằm trên máy này và còn nguyên khi bạn sửa agent.
 3. **Khoá dịch vụ và ứng dụng** — agent cần khoá API thì nó hỏi bạn ngay trong chat và dùng được liền. Cần Google Sheets, Gmail… thì nó kiểm đã nối chưa và chỉ bạn vào Settings → Ứng dụng.
 4. **Sửa agent bằng lời** — *"cho agent sổ đơn nói ngắn hơn"*, *"thêm mục ngày giao"*. Tôi cho bạn xem trước/sau, bạn đồng ý thì tôi cài bản mới.
@@ -37,6 +37,10 @@ Bạn muốn nghe kỹ phần nào thì bảo tôi.
 - Tôi hỏi 3–7 câu: agent làm việc gì, ai nhắn với nó, nó cần nhớ những gì, và **ít nhất một ví dụ hội thoại** (bạn nhắn gì, agent nên trả lời gì). Câu nào bạn đã nói trong tin đầu thì tôi không hỏi lại. Muốn nhanh thì nói *"phần còn lại bạn tự chọn"*.
 - Charter là bản mô tả agent: việc chính, giọng nói, kịch bản, dữ liệu, những điều agent không bao giờ làm. Tôi chỉ dựng khi bạn nói rõ *"duyệt"* / *"ok"* / *"làm đi"* — *"được nhưng sửa…"* chưa phải duyệt.
 - Lần đầu dựng, tôi hỏi bạn một **tên tác giả** ngắn (chữ thường không dấu, vd `binhnt`). Tên này đặt một lần, dùng cho mọi agent của bạn, không đổi được.
+- Tôi hỏi luôn agent **sống ở đâu và làm gì ngoài trò chuyện**: chỉ trong Chat, hay trên Zalo cá nhân (chỉ nghe, hoặc trả lời), Zalo Bot, bot Telegram; có tự chạy theo giờ không (tóm tắt cuối ngày, báo cáo 8 giờ sáng) và gửi kết quả đi đâu; có đọc ghi Google Sheets, Drive, Gmail không. Charter ghi các việc đó ở mục "Năng lực cần".
+- Agent cần đăng nhập Zalo cá nhân thì sau khi cài nó đưa mã QR ngay trong Chat để bạn quét bằng điện thoại. Agent "chỉ nghe" không bao giờ gửi tin, kể cả khi có người nhờ.
+- Một tài khoản Zalo, một bot Telegram chỉ một agent giữ: đã có agent khác đang dùng thì tôi báo và đưa cách khác (vd đọc ké tin agent kia đang nghe), không giành.
+- Có bước phải khởi động lại máy (vd vừa gắn kênh mới) thì tôi hỏi bạn trước — mọi agent khựng vài giây đến một phút.
 - Charter đang dở thì lúc khác nói *"tiếp agent sổ đơn hàng"* là tôi làm tiếp.
 - Agent nào tôi dựng cũng có hướng dẫn dùng riêng: hỏi chính agent đó *"bạn làm được gì"* hay *"bạn có làm được … không"* là nó kể đúng việc của nó và nói thật việc chưa làm được. Agent làm trước khi có tính năng này thì nói *"thêm hướng dẫn cho agent …"*.
 
@@ -99,14 +103,15 @@ curl -fsSL https://raw.githubusercontent.com/try-open-claw-io/skills.tryopenclaw
 
 Nói thẳng, không hứa ngày:
 
-- Agent bạn làm chưa trả lời được trên Zalo, Facebook hay Telegram — nó sống trong Chat của ClawExperts.
-- Agent chưa tự nhắn theo giờ (nhắc việc lúc 8 giờ, báo cáo cuối ngày).
-- Agent chưa đọc hay ghi Google Sheets, Gmail… — mới kiểm được đã nối hay chưa.
-- Agent bạn làm chưa có màn hình (dashboard) riêng — chỉ có trò chuyện. Trang Xưởng agent là của tôi, để bạn quản lý các agent đó.
+- Agent bạn làm chưa có màn hình (dashboard) riêng — chỉ có trò chuyện (trong Chat, hoặc trên kênh bạn nối). Trang Xưởng agent là của tôi, để bạn quản lý các agent đó.
+- Agent chưa trả lời được trên Facebook Messenger — đang làm, chưa có sẵn. Trong lúc chờ: Zalo hay Telegram.
 - Chưa nhập được agent người khác gửi để sửa thành của mình.
 
+Kênh Zalo, Telegram, tự chạy theo giờ, đọc ghi Google Sheets / Drive / Gmail, chạy nền: **làm được** — xem Khối 1, nói *"tạo agent …"* hay *"cho agent … nghe group Zalo"*.
+
 Không bao giờ có:
-- Agent tôi dựng không bao giờ được chạy lệnh trên máy — chỉ tôi chạy lệnh, và chỉ trong thư mục của tôi.
+- Agent tôi dựng không có quyền tự chạy lệnh tuỳ ý trên máy. Việc chạy nền (nghe Zalo, lịch) nằm trong công cụ tôi viết sẵn cho nó và thử trước khi cài.
+- Tôi không giành kênh của agent khác: tài khoản Zalo, bot Telegram, lịch đang thuộc một agent khác trên máy thì tôi không lấy.
 - Tôi không đọc, không sửa dữ liệu trong sổ của agent — muốn xem thì hỏi thẳng agent đó. Ngoại lệ duy nhất: xoá các bản ghi do lượt thử ghi, khi bạn bảo.
 - Tôi không khởi động lại máy khi bạn chưa đồng ý — mọi agent, kể cả agent đang trả lời khách, sẽ ngừng một lúc.
 
@@ -115,7 +120,7 @@ Không bao giờ có:
 ## Ghi chú cho người bảo trì skill này
 
 - Trang này là **nguồn duy nhất** của phần hướng dẫn. `agent-clawexperts-code/AGENTS.md` (mục CÁCH DÙNG và §Trợ giúp) chỉ trỏ sang đây, không chép lại — hai bản của cùng một hướng dẫn sẽ trôi khỏi nhau.
-- NGOẠI LỆ: các dòng chính của Khối 9 (chưa làm được) được chép NGẮN vào §Trợ giúp của AGENTS.md, vì đó là luật cứng. Đo 09/10: hỏi "agent tôi làm có trả lời khách trên Zalo được không?" thì CE Code không mở skill này và trả lời "được, nhưng…" theo kiến thức nền. Sửa Khối 9 thì sửa cả chỗ đó.
+- NGOẠI LỆ: năng lực của agent (Khối 1) và các dòng chính của Khối 9 (chưa làm được) được chép NGẮN vào §Trợ giúp của AGENTS.md, vì đó là luật cứng. Đo 09/10: hỏi "agent tôi làm có trả lời khách trên Zalo được không?" thì CE Code không mở skill này mà trả lời theo kiến thức nền. Sửa Khối 1 hay Khối 9 thì sửa cả chỗ đó (D-101: kênh, lịch, ứng dụng làm được; chỉ dashboard và Facebook chưa).
 - Là SKILL chứ không nằm trong AGENTS.md vì OpenClaw nạp skill hai tầng: mục lục mỗi lượt, thân chỉ khi agent đọc. Nhét vào AGENTS.md là trả thuế token cho mọi tin nhắn.
 - Thêm năng lực mới (tool `ce_*` mới) thì sửa **hai chỗ**: khối tương ứng ở đây và mục Công cụ của AGENTS.md. Quên chỗ này thì người dùng hỏi "bạn làm được gì" và nghe thiếu — mà thiếu thì không có triệu chứng nào.
 - Một câu chỉ thuộc về MỘT cửa: đừng nhận vào `description` các câu làm việc thật ("tạo agent…", "chia sẻ agent…", "thử agent…") — chúng thuộc về skill `tao-agent`, `thu-agent` và mục CHIA SẺ của AGENTS.md.

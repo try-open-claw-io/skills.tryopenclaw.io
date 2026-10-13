@@ -59,9 +59,10 @@ nào cần người dùng xác nhận. Lấy từ charter mục 4 (cách làm vi
 
 ## Khối Chưa làm được
 
-Phần chung (công cụ viết) liệt kê giới hạn của nền tảng ở bản này: kênh ngoài Chat, tự nhắn theo giờ, đọc
-ghi ứng dụng, gửi tin ra ngoài. Phần riêng do CE Code chép từ charter mục 6 (không bao giờ làm) và mục 9
-(chưa làm được trong bản này), viết thành câu nói với người dùng. Không có thì ghi "Không có thêm."
+Phần chung (công cụ viết) liệt kê giới hạn của nền tảng ở bản này — chỉ còn màn hình riêng (dashboard) — và
+một câu: việc agent này chưa làm (kênh khác, tự nhắn theo giờ, ứng dụng khác) thì nhờ ClawExperts Code thêm. Phần
+riêng do CE Code chép từ charter mục 6 (không bao giờ làm) và mục 9 (chưa làm được trong bản này), viết thành câu
+nói với người dùng. Không có thì ghi "Không có thêm."
 
 ## Để agent thật sự đọc hướng dẫn
 
@@ -71,7 +72,8 @@ kể cả khi nó nghĩ mình đã biết. Đo trên OpenClaw 2026.9.7: câu tr�
 12/12 lần đọc trên bốn agent.
 
 Các dòng "chưa làm được" của nền tảng còn được chép ngắn vào SOUL.md ("Giới hạn của bản này"), vì câu hỏi
-"…được không?" không phải lúc nào cũng làm agent mở skill.
+"…được không?" không phải lúc nào cũng làm agent mở skill. Agent "chỉ nghe" (charter mục 10) có thêm luật không bao
+giờ gửi tin trong mục đó.
 
 ## Agent dựng trước khi có hướng dẫn
 
@@ -85,4 +87,5 @@ Cùng lần đó công cụ viết lại các mục do nó sở hữu (allowlist
 
 Tệp kịch bản của agent mới có sẵn hai ca, giữ nguyên khi viết các ca khác:
 - `ban-lam-duoc-gi` — "bạn làm được gì?": kể đúng Khối 1, không kể việc không làm được.
-- `viec-chua-co` — "bạn trả lời khách trên Zalo được không?": nói thẳng chưa làm được, không "được nếu…".
+- `viec-chua-co` — "bạn có màn hình riêng (dashboard) để tôi xem số liệu không?": nói thẳng chưa có, chỉ có trò
+  chuyện; không "được nếu…".

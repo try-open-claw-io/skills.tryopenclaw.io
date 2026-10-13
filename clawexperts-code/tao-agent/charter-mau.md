@@ -16,7 +16,7 @@ dựng đọc sau này) và **bản tóm tắt** (trình trong chat để duyệ
 <một dòng, đo được>
 
 ## 2. Ai dùng · ở đâu
-<ai nhắn với agent> · Chat của ClawExperts
+<ai nhắn với agent> · <Chat của ClawExperts / Zalo cá nhân / Zalo Bot / Telegram>
 
 ## 3. Tính cách & giọng
 - Tên: <tên>
@@ -47,7 +47,15 @@ dựng đọc sau này) và **bản tóm tắt** (trình trong chat để duyệ
 - <thứ CE Code chọn thay người dùng — hoặc: không có>
 
 ## 9. Chưa làm được trong bản này
-- <vd trả lời khách qua Zalo · tự nhắn lúc 8 giờ — hoặc: không có>
+- <vd màn hình riêng (dashboard) — hoặc: không có>
+
+## 10. Năng lực cần
+- Kênh: <không (chỉ Chat) / Zalo cá nhân — nghe group "<tên>", "<tên>" / Zalo cá nhân — trả lời / Zalo Bot "<tên bot>" / Telegram "<tên bot>">
+- Chỉ nghe (không bao giờ gửi tin): <có / không>
+- Lịch: <không / <việc> lúc <HH:MM> giờ Việt Nam, gửi vào <Chat / Telegram / Zalo>>
+- Ứng dụng: <không / Google Sheets "<tên>" — đọc, ghi / Drive / Gmail …>
+- MCP ngoài: <không / <tên server> — <dùng để làm gì>>
+- Khác: <không / nhiều agent / mở trang web / sinh .docx, .xlsx / đọc ảnh quét>
 ```
 
 ## Bản tóm tắt trong chat (≤ ~25 dòng)
@@ -68,6 +76,7 @@ Dữ liệu: <trường…> · nguồn <…> · <cần plugin / connector / secr
 Không bao giờ: <…>
 Ví dụ: "<người dùng nhắn>" → "<agent trả lời>"
 
+Năng lực: <kênh · lịch · ứng dụng… — hoặc: chỉ Chat><nếu chỉ nghe: " · chỉ nghe, không bao giờ gửi tin">
 Tôi tự chọn: <…>
 Chưa làm được trong bản này: <…>
 
@@ -75,3 +84,5 @@ Chưa làm được trong bản này: <…>
 ```
 
 Mục 8 và 9 trống thì vẫn in một dòng "không có" — để người dùng thấy rõ là không có, không phải bị quên.
+Mục 10 luôn đủ sáu dòng (dòng không cần ghi "không"): công cụ dựng đọc dòng "Chỉ nghe" để viết luật không gửi
+tin vào SOUL của agent, và chọn khuôn năng lực theo các dòng còn lại.

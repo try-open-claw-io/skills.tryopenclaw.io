@@ -5,4 +5,4 @@ Playbook cho skill `tao-agent` của ClawExperts Code: phỏng vấn người d�
 - [phong-van.md](phong-van.md) — hỏi gì, hỏi thế nào để đủ viết charter; người trả lời hiểu việc của họ, không hiểu kỹ thuật
 - [charter-mau.md](charter-mau.md) — mẫu charter: bản tệp đầy đủ và bản tóm tắt trình duyệt trong chat
 - [huong-dan-agent.md](huong-dan-agent.md) — skill hướng dẫn dùng mà mọi agent được dựng đều có: nằm ở đâu, ai viết khối nào, viết Khối 1 thế nào
-- [architecture.md](architecture.md) — các lớp của nền tảng, bố cục instance, agent gồm gì, không được đụng gì, vì sao bản này chưa làm được một số việc
+- [architecture.md](architecture.md) — các lớp của nền tảng, bố cục instance, agent gồm gì, năng lực agent làm được (kênh, lịch, ứng dụng, chạy nền), luật không phá agent khác
