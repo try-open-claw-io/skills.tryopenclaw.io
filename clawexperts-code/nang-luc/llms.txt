@@ -1,0 +1,5 @@
+# nang-luc — năng lực của agent
+
+Playbook cho skill `nang-luc` của ClawExperts Code: dựng kênh, lịch, ứng dụng, chạy nền cho agent người dùng làm bằng khuôn năng lực. Viết cho OpenClaw 2026.9.9. Bản chụp trong Bundle CE Code: `skills/nang-luc/references/`.
+
+- [cach-ap-khuon.md](cach-ap-khuon.md) — khuôn năng lực là gì, ce_capability_add làm gì (gộp overlay, sinh config.sh, chép nguồn plugin, công cụ của agent), module khuôn trong plugin, bảng khuôn có
