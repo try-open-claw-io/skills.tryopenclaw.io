@@ -33,3 +33,16 @@ Chưng cất từ sự cố thật của các use-case ClawExperts. Đọc trư�
 - **`~/.openzca` không nằm trên ổ được giữ**: đăng nhập sống qua khởi động lại gateway / container, mất khi container
   dựng lại — quét QR lại.
 - **Tin chỉ có từ lúc đăng nhập**: không có lịch sử trước đó.
+
+## Lịch (cron)
+
+- **Cron chạy theo giờ MÁY CHỦ (UTC)** khi không khai `tz` — lệch 7 tiếng so với giờ người dùng nói.
+- **Không `--exact` thì cron rải ngẫu nhiên vài phút** — người dùng đặt 8:00 thấy 8:04.
+- **Job isolated mặc định "announce"**: thiếu `--no-deliver` thì câu kết của agent lọt ra kênh cuối cùng.
+- **Lượt cron hỏng thì chat vẫn chạy** — đừng suy "agent khoẻ" từ chat. Xem kết quả lần chạy (`cron-status`: lần trước
+  lỗi gì). Bản cũ (7.x) từng chết vì thiếu `models.providers` cho model trong `agents.defaults.models`; 9.9 không cần.
+- **`--session isolated` mở phiên mới mỗi lần chạy** (kể cả có `--session-key`): phiên cố định là `--session session:<key>`.
+- **Agent mới cần auth model**: 9.9 giữ đăng nhập model theo từng agent; máy chưa có "shared auth" thì agent mới trả 401
+  (cả chat lẫn lịch) tới khi đăng nhập model cho nó.
+- **Container dựng lại / cài lại kiểu local xoá sạch kho cron** ⇒ `post-install` phải đặt lại lịch; luôn đếm lại kèm cột tz.
+- **Heartbeat không đọc HEARTBEAT.md** trên 9.x — việc theo giờ đi bằng cron, không bằng heartbeat.

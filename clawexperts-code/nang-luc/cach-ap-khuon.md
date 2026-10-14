@@ -18,6 +18,8 @@ Dựng tay từ trang trắng là dính lại đúng các bẫy team đã trả 
      từng khuôn), mỗi lệnh con của khuôn một nhánh, `help` liệt kê. Thân lệnh con là hàm `cap_<tên_lệnh>`.
    - công cụ của agent: `tools.profile: "minimal"`, `alsoAllow` = `read` + plugin của agent + công cụ các khuôn cần.
      Agent không bao giờ có `exec`.
+   - SOUL của agent: khuôn chỉ nghe (vd `zalo-ca-nhan-nghe`) hoặc charter mục 10 "Chỉ nghe: có" ⇒ công cụ viết luật cứng
+     không bao giờ gửi tin vào mục "Giới hạn của bản này" (đừng viết tay).
 5. Trả: tệp còn phải viết (CE_FILL), khoá overlay vừa thêm, lệnh con, công cụ của agent.
 
 Áp lại cùng khuôn: không đổi byte nào. Khuôn được sửa sau (bản CE Code mới): `ce_build` / `ce_package` sinh lại
@@ -49,6 +51,7 @@ export default mod;
 |---|---|---|
 | Lưu, tra dữ liệu | `so-du-lieu` (cũng là `ce_plugin_add`) | `luat-plugin.md` của skill `viet-plugin` |
 | Kênh: Zalo cá nhân — chỉ nghe | `zalo-ca-nhan-nghe` | `zalo-ca-nhan-nghe.md` |
+| Lịch: chạy theo giờ (kết quả trong Chat) | `lich` | `lich.md` |
 
 Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay. Trước khi viết plugin có
 việc nền hay sửa khuôn: đọc `bay.md`.
