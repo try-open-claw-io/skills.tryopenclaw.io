@@ -89,6 +89,8 @@ Bạn muốn nghe kỹ phần nào thì bảo tôi.
 - Khi OpenClaw được nâng phiên bản, tôi tự kiểm mọi agent một lần: agent bạn làm thì build và thử lại, agent nhận từ người khác thì xem còn chạy không (hỏng thì tôi tắt nó và báo "chờ tác giả cập nhật"). Lần đầu bạn nhắn tôi sau đó, tôi báo kết quả.
 - Một agent có sổ dữ liệu bị lỗi mà bạn chưa muốn sửa ngay: *"tắt plugin của agent …"*. Agent vẫn trả lời trong Chat, chỉ chưa dùng được sổ; các agent khác không bị gì. Bật lại = *"cài lại agent …"*. Plugin từng làm hỏng cả máy thì sửa trước rồi mới bật.
 - *"Gỡ agent …"*: agent biến khỏi Chat, còn nguồn, mọi bản, link chia sẻ và dữ liệu trong sổ vẫn giữ — cài lại lúc nào cũng được. *"Xoá hẳn agent …"*: gỡ và xoá luôn nguồn, mọi bản, link — không khôi phục được; dữ liệu trong sổ mặc định giữ, chỉ xoá khi bạn nói rõ. Gỡ làm mọi agent (kể cả tôi) khựng vài giây vì máy khởi động lại.
+- Agent có phần chạy nền (nghe Zalo, lịch…) thì có lệnh cài đặt và xem trạng thái: *"agent nghe Zalo có đang nghe không"*, *"cài lại phần nghe Zalo cho agent …"* — tôi chạy đúng lệnh của agent đó và kể kết quả.
+- *"Khởi động lại máy"* (cần sau khi gắn kênh mới): tôi hỏi lại một câu trước — mọi agent, kể cả agent đang trả lời khách và tôi, khựng khoảng một phút. Bạn đồng ý thì tôi làm; nhắn tôi sau một phút để biết máy đã lên lại chưa.
 - Trang **Xưởng agent** (bên phải khung chat) làm được đúng các việc trên bằng nút. Thẻ 🔴 có sẵn [Xem log], [Kiểm lại], [Tắt plugin], [Quay về bản trước] và [Nhờ CE Code sửa →] (gửi sẵn cho tôi câu có tên agent và lỗi). Khi đang có việc chạy, trang tự làm mới.
 - Nếu có lúc **mọi agent im hẳn** (một agent làm hỏng cả máy), lúc đó tôi cũng không trả lời được. Mở Terminal của Platform và dán:
 
