@@ -53,7 +53,7 @@ export default mod;
 |---|---|---|
 | Lưu, tra dữ liệu | `so-du-lieu` (cũng là `ce_plugin_add`) | `luat-plugin.md` của skill `viet-plugin` |
 | Kênh: Zalo cá nhân — chỉ nghe | `zalo-ca-nhan-nghe` | `zalo-ca-nhan-nghe.md` |
-| Lịch: chạy theo giờ (kết quả trong Chat) | `lich` | `lich.md` |
+| Lịch: chạy theo giờ (kết quả trong Chat, hoặc gửi ra Telegram / Zalo) | `lich` | `lich.md` |
 | Kênh: bot Telegram riêng — trả lời | `telegram-bot` | `telegram-bot.md` |
 | Kênh: Zalo Bot riêng — trả lời | `zalo-bot` | `zalo-bot.md` |
 | Kênh: Zalo cá nhân — trả lời (kéo theo khuôn nghe) | `zalo-ca-nhan-tra-loi` | `zalo-ca-nhan-tra-loi.md` |

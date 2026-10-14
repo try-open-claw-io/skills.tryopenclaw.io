@@ -52,7 +52,7 @@ dựng đọc sau này) và **bản tóm tắt** (trình trong chat để duyệ
 ## 10. Năng lực cần
 - Kênh: <không (chỉ Chat) / Zalo cá nhân — nghe group "<tên>", "<tên>" / Zalo cá nhân — trả lời tin riêng <mọi người / "<tên>", "<tên>">, nhóm <không / "<tên>" khi được tag> / Zalo Bot "<tên bot>" / Telegram "<tên bot>">
 - Chỉ nghe (không bao giờ gửi tin): <có / không>
-- Lịch: <không / <việc> lúc <HH:MM> giờ Việt Nam, gửi vào <Chat / Telegram / Zalo>>
+- Lịch: <không / <việc> lúc <HH:MM> giờ Việt Nam, gửi vào <Chat / Telegram / Zalo Bot / Zalo cá nhân>>
 - Ứng dụng: <không / Google Sheets "<tên>" — đọc, ghi / Drive / Gmail …>
 - MCP ngoài: <không / <tên server> — <dùng để làm gì>>
 - Khác: <không / nhiều agent / mở trang web / sinh .docx, .xlsx / đọc ảnh quét>

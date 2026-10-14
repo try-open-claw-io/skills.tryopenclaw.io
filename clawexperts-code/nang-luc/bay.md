@@ -63,7 +63,17 @@ Kênh trả lời `openzalo` (khuôn `zalo-ca-nhan-tra-loi`):
 - **Agent mới cần auth model**: 9.9 giữ đăng nhập model theo từng agent; máy chưa có "shared auth" thì agent mới trả 401
   (cả chat lẫn lịch) tới khi đăng nhập model cho nó.
 - **Container dựng lại / cài lại kiểu local xoá sạch kho cron** ⇒ `post-install` phải đặt lại lịch; luôn đếm lại kèm cột tz.
-- **Heartbeat không đọc HEARTBEAT.md** trên 9.x — việc theo giờ đi bằng cron, không bằng heartbeat.
+- **Heartbeat không đọc HEARTBEAT.md** trên 9.x — việc theo giờ đi bằng cron, không bằng heartbeat. Đừng khai khối
+  `heartbeat` cho agent trong overlay: có một agent khai là CHỈ agent đó còn heartbeat, mọi agent khác trên máy mất.
+- **`--announce` thiếu `--account`** ⇒ gửi bằng bot mặc định của máy (bot của agent khác). Luôn kèm account riêng + `--to`.
+- **Gửi từ hẹn giờ / việc nền (không có lượt tool)**: `sendDurableMessageBatch` KHÔNG tự điền `cfg` ⇒ trượt mọi lần
+  (kênh đọc account từ `undefined`). Tự nạp `getRuntimeConfig()` từ `openclaw/plugin-sdk/config-runtime`.
+- **Plugin mở lượt agent ngay**: `api.runtime.subagent.run` phải được gọi (và `await`) TRONG lúc tool còn chạy — gọi sau khi
+  tool trả về là "invocation authority expired"; `waitForRun` / `getSessionMessages` chạy nền sau đó cũng bị huỷ (9.9) ⇒
+  không lấy được câu cuối để tự gửi. Chạy lại một lịch có sẵn: `openclaw cron run <id>` qua CLI (không gắn với lời gọi tool;
+  từ chối khi job đang chạy). `gateway.request` bị chặn với plugin cài từ đường dẫn.
+- **Canh gác chạy trong gateway nhân đôi**: `register()` chạy hai lần ⇒ hai bộ hẹn giờ — giành vòng ở mức kho (tệp khoá +
+  mốc), không bằng biến trong RAM. Báo động không đi qua LLM: model hỏng thì lượt cron chết, lượt báo động cũng chết.
 
 ## Telegram
 
