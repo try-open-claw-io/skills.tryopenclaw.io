@@ -59,6 +59,7 @@ export default mod;
 | Kênh: Zalo cá nhân — trả lời (kéo theo khuôn nghe) | `zalo-ca-nhan-tra-loi` | `zalo-ca-nhan-tra-loi.md` |
 | Ứng dụng: Google Sheets / Drive / Gmail — đọc, ghi | `composio` | `composio.md` |
 | MCP ngoài: gọi tool của một MCP server | `mcp-ngoai` | `mcp-ngoai.md` |
+| Khác: nhiều agent (điều phối + chuyên trách) | `nhieu-agent` qua `ce_peer_add` | `nhieu-agent.md` |
 
 Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay. Trước khi viết plugin có
 việc nền hay sửa khuôn: đọc `bay.md`.

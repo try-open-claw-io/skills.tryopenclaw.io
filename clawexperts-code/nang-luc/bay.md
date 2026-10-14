@@ -104,6 +104,17 @@ Kênh trả lời `openzalo` (khuôn `zalo-ca-nhan-tra-loi`):
 - **url phải có đường dẫn** (`https://host/mcp`, không phải `https://host/`); server stateless trả `GET` 405 là đúng.
 - Khoá nằm ở `headers` trong `openclaw.json` (client MCP chỉ đọc khoá từ config) — như token bot; không in ra, không nhắc lại.
 
+## Nhiều agent
+
+- **`sessions_send` bật sẵn từ 9.7** (mọi cặp agent, tầm nhìn `all`). KHÔNG khai `tools.agentToAgent.allow`: khai là CHẶN
+  mọi cặp không có tên — kể cả cặp của ws khác trên máy. `sessions_send` không có trong profile `minimal` ⇒ agent chính
+  thêm vào `alsoAllow`.
+- **Chỉ agent đăng ký ở `agents.list` (peer) dùng được** `sessions_send`; subagent (`sessions_spawn`) bị chặn tool này.
+- **Tệp không đi qua `message`** (chỉ chữ): chuyển ĐƯỜNG DẪN tệp, agent kia đọc bằng `read`.
+- **Tool plugin hiện với MỌI agent của máy** nếu đăng ký thẳng — khuôn plugin trả tool chỉ cho agent chính (factory trả
+  `null` cho agent khác), nên agent chuyên trách không thấy tool đó.
+- **Agent mới cần auth model riêng** (9.9): cả nhóm đều 401 tới khi đăng nhập model cho từng agent (hay máy có shared auth).
+
 ## Telegram
 
 - **Account con `channels.telegram.accounts.<id>` kế thừa MỌI khoá gốc nó không tự đặt** — kể cả `allowFrom`, `groups` của ws
