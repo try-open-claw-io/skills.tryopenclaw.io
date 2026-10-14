@@ -57,6 +57,8 @@ export default mod;
 | Kênh: bot Telegram riêng — trả lời | `telegram-bot` | `telegram-bot.md` |
 | Kênh: Zalo Bot riêng — trả lời | `zalo-bot` | `zalo-bot.md` |
 | Kênh: Zalo cá nhân — trả lời (kéo theo khuôn nghe) | `zalo-ca-nhan-tra-loi` | `zalo-ca-nhan-tra-loi.md` |
+| Ứng dụng: Google Sheets / Drive / Gmail — đọc, ghi | `composio` | `composio.md` |
+| MCP ngoài: gọi tool của một MCP server | `mcp-ngoai` | `mcp-ngoai.md` |
 
 Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay. Trước khi viết plugin có
 việc nền hay sửa khuôn: đọc `bay.md`.

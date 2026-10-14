@@ -75,6 +75,35 @@ Kênh trả lời `openzalo` (khuôn `zalo-ca-nhan-tra-loi`):
 - **Canh gác chạy trong gateway nhân đôi**: `register()` chạy hai lần ⇒ hai bộ hẹn giờ — giành vòng ở mức kho (tệp khoá +
   mốc), không bằng biến trong RAM. Báo động không đi qua LLM: model hỏng thì lượt cron chết, lượt báo động cũng chết.
 
+## Ứng dụng Google (connector Composio)
+
+- **Gọi qua `connector_call_tool {name, arguments}`**: gọi thẳng tên slug thì proxy chạy lời gọi MẶC ĐỊNH với tham số rỗng
+  (đo: liệt kê Drive trả cả My Drive thay vì thư mục chọn). Đừng đoán slug: slug bịa trả "Unable to retrieve tool with slug".
+- **`tools/list` cắt 20 tool mỗi ứng dụng theo vần** — không phải danh sách gọi được (`GOOGLEDRIVE_CREATE_FILE_FROM_TEXT` nằm
+  ngoài mà vẫn gọi được).
+- **Bốn dạng kết quả**: JSON-RPC lỗi · ứng dụng CHƯA NỐI = chữ tiếng Anh trơn kèm `isError` (không JSON — bộ bóc nào nuốt
+  lỗi parse là báo "trống") · `successful:false` trong JSON · thành công mà thiếu dữ liệu (`_no_id`) = kết nối Google cũ
+  hỏng, phải nối lại. Bảng rỗng THẬT vẫn có khoá (`values: []`).
+- **Đọc Sheet bằng `GOOGLESHEETS_BATCH_GET` với vùng CÓ BIÊN** (`A1:Z1001`; vùng trần `A:W` trả rỗng), không bằng gviz
+  (gviz tự đoán dòng tiêu đề, gộp nhiều dòng thành một — mất dữ liệu im lặng). `gid` trong link = tab người dùng đang xem.
+- **Ghi Sheet kiểm bằng ĐỌC LẠI**: có ca Composio báo xong mà không ghi gì. Ghi `USER_ENTERED` thì Google định dạng lại
+  số / ngày — so ô có chữ cái, đừng so mọi ô.
+- **Tool TẠO MỚI gọi với tham số rỗng là tạo thật** (`GOOGLEDRIVE_CREATE_FILE {}` ⇒ tệp "Untitled"). Kiểm tham số trước.
+- **Gmail không có truy vấn ⇒ 20 thư mới nhất CẢ hộp thư** (toàn quảng cáo); mỗi thư ~66.000 ký tự HTML — bóc thẻ, cắt.
+- **Connector nối theo INSTANCE**: nối tài khoản Google mới là đổi tài khoản cho mọi agent trên máy. Dữ liệu riêng tư ⇒
+  instance riêng.
+- Proxy đòi `Accept: application/json, text/event-stream` (thiếu là 406) và tiền tố `Bearer` trong `Authorization`.
+
+## MCP ngoài (`mcp.servers`)
+
+- **Khai bằng config, không viết tool bọc**: OpenClaw biến mọi tool của server thành tool native `<server>__<tool>`.
+- **`Authorization` thiếu tiền tố `Bearer`** ⇒ 401 "Invalid JWT form" — trông như khoá sai, mất cả giờ (ws-ce-ops).
+- **`mcp.servers` là của CHUNG máy**: agent nào có `bundle-mcp` (profile `full`, `coding`…) cũng thấy tool của server. Agent
+  CE Code dựng mở đúng server của nó bằng glob `<tiền tố>-*`; đừng thêm `bundle-mcp`.
+- **Tên server bị cắt còn 30 ký tự** trong tên tool (trùng thì thêm `-2`) — đặt tên ngắn, mở đầu bằng tiền tố của agent.
+- **url phải có đường dẫn** (`https://host/mcp`, không phải `https://host/`); server stateless trả `GET` 405 là đúng.
+- Khoá nằm ở `headers` trong `openclaw.json` (client MCP chỉ đọc khoá từ config) — như token bot; không in ra, không nhắc lại.
+
 ## Telegram
 
 - **Account con `channels.telegram.accounts.<id>` kế thừa MỌI khoá gốc nó không tự đặt** — kể cả `allowFrom`, `groups` của ws
