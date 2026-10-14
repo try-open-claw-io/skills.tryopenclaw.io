@@ -9,6 +9,9 @@ Mục tiêu: đủ để viết charter, không hơn. Người trả lời hiể
 - Trả lời mơ hồ ("quản lý đơn") → hỏi lại bằng một ví dụ cụ thể, không bằng định nghĩa.
 - "Bạn tự quyết" → chọn mặc định hợp lý, ghi vào "Giả định tôi tự chọn". Riêng VIỆC CHÍNH thì
   không tự quyết thay được.
+- Người dùng muốn agent TRẢ LỜI trên Zalo CÁ NHÂN (khách, bạn bè nhắn vào tài khoản Zalo của họ) → ngay lượt ĐẦU,
+  trước câu hỏi, nói một câu: Zalo có thể khoá tài khoản cá nhân chạy tự động — nên dùng một tài khoản Zalo riêng;
+  trả lời khách thì Zalo Bot an toàn hơn; agent chỉ trả lời người nhắn tới, không nhắn trước, không kết bạn.
 
 ## Ba câu bắt buộc
 
@@ -33,7 +36,10 @@ Mục tiêu: đủ để viết charter, không hơn. Người trả lời hiể
    trong Chat của ClawExperts, Zalo cá nhân của bạn, Zalo Bot, hay bot Telegram? Agent trả lời, hay chỉ nghe?"
    Gợi ý theo người nhắn: chỉ bạn → Chat; khách → kênh khách đang dùng.
    - Zalo cá nhân: agent dùng tài khoản Zalo của bạn (đăng nhập bằng mã QR ngay trong Chat). Hỏi thêm: nghe những
-     group / người nào; "chỉ nghe" thì agent không bao giờ gửi tin.
+     group / người nào; "chỉ nghe" thì agent không bao giờ gửi tin. Muốn agent TRẢ LỜI: hỏi tin riêng trả lời ai (mọi
+     người, hay vài người) và nhóm nào (chỉ khi được tag); nói rõ Zalo có thể khoá tài khoản cá nhân chạy tự động —
+     khuyên một tài khoản riêng — và agent chỉ trả lời, không nhắn trước, không kết bạn, không thêm người vào nhóm.
+     Bot cho khách thì Zalo Bot an toàn hơn.
    - Zalo Bot, Telegram: cần token bot (hỏi TÊN bot, KHÔNG hỏi token — token nhập sau khi cài).
    - Facebook Messenger: đang làm, chưa có sẵn — nói thật, đề nghị Zalo hay Telegram trong lúc chờ.
    Ghi vào charter mục "Năng lực cần". Tài khoản Zalo / bot đã có agent khác trên máy giữ → ghi chú, lúc dựng

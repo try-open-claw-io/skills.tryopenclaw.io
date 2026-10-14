@@ -34,6 +34,24 @@ Chưng cất từ sự cố thật của các use-case ClawExperts. Đọc trư�
   dựng lại — quét QR lại.
 - **Tin chỉ có từ lúc đăng nhập**: không có lịch sử trước đó.
 
+Kênh trả lời `openzalo` (khuôn `zalo-ca-nhan-tra-loi`):
+
+- **Ghim `@tuyenhx/openzalo@2026.10.12`**: mọi bản cũ hơn làm gateway OpenClaw ≥ 2026.8.1 THOÁT ở tin Zalo đầu tiên và
+  gửi trả lời hỏng (CHANGELOG của plugin). Plugin là của chung máy: đã có thì dùng chung — `--force` đè bản agent khác.
+- **Khai `channels.openzalo` khi plugin chưa có ⇒ gateway từ chối khởi động, lặp mãi** (CLI chết theo, không gỡ được
+  bằng lệnh). Khuôn không khai kênh trong overlay: account + tuyến ghi lúc chạy, sau khi plugin đã nạp.
+- **Account kế thừa mọi khoá gốc `channels.openzalo.*`** — kể cả `allowFrom`, `groups`, `acpx` của ws khác. Ghi tường minh.
+- **Khối gốc kiểu MỘT tài khoản** (có `profile` / chính sách ở gốc, không có `accounts`): thêm một account là account ngầm
+  `default` biến mất — kênh của agent kia chết im lặng.
+- **Listener của kênh là `listen --raw --supervised`**: không `--db` (profile phải `db enable`, không thì kho 0 tin) và
+  không `--self` (tin agent gửi không vào kho; tự nhắn cho chính tài khoản đó không vào agent — thử bằng tài khoản khác).
+- **Kênh bật thì listener của kênh là listener DUY NHẤT** của profile: listener nghe phải dừng trước và không dựng lại
+  (khuôn nghe tự nhường khi thấy account kênh của agent đang bật).
+- **`actions` của kênh mặc định BẬT**: thả cảm xúc, sửa / thu hồi, đổi tên / rời nhóm, thêm-bớt người, ghim — trên tài
+  khoản cá nhân là hành động chủ động. Khuôn tắt hết.
+- **Plugin mang skill `openzca`** dạy dùng CLI (kết bạn, quản trị nhóm…) qua `exec` — agent người dùng không có `exec`.
+- **9.9 nạp nóng plugin cài bằng npm** ("Applied in Gateway generation N") — không cần khởi động lại sau `zalo-kenh-cai`.
+
 ## Lịch (cron)
 
 - **Cron chạy theo giờ MÁY CHỦ (UTC)** khi không khai `tz` — lệch 7 tiếng so với giờ người dùng nói.

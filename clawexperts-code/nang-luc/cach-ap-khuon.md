@@ -19,8 +19,10 @@ Dựng tay từ trang trắng là dính lại đúng các bẫy team đã trả 
    - công cụ của agent: `tools.profile: "minimal"`, `alsoAllow` = `read` + plugin của agent + công cụ các khuôn cần.
      Agent không bao giờ có `exec`.
    - SOUL của agent: khuôn chỉ nghe (vd `zalo-ca-nhan-nghe`) hoặc charter mục 10 "Chỉ nghe: có" ⇒ công cụ viết luật cứng
-     không bao giờ gửi tin vào mục "Giới hạn của bản này" (đừng viết tay).
-5. Trả: tệp còn phải viết (CE_FILL), khoá overlay vừa thêm, lệnh con, công cụ của agent.
+     không bao giờ gửi tin vào mục "Giới hạn của bản này"; khuôn trả lời trên tài khoản cá nhân (vd
+     `zalo-ca-nhan-tra-loi`) ⇒ luật "chỉ trả lời, không chủ động" thay cho luật đó (đừng viết tay).
+5. Khuôn cần khuôn khác (vd trả lời Zalo cần khuôn nghe) ⇒ khuôn kia được áp trước, tự động; kết quả nói đã kéo theo.
+6. Trả: tệp còn phải viết (CE_FILL), khoá overlay vừa thêm, lệnh con, công cụ của agent.
 
 Áp lại cùng khuôn: không đổi byte nào. Khuôn được sửa sau (bản CE Code mới): `ce_build` / `ce_package` sinh lại
 config.sh, công cụ và sổ đăng ký — agent cũ nhận bản mới ở lần đóng gói kế tiếp.
@@ -54,6 +56,7 @@ export default mod;
 | Lịch: chạy theo giờ (kết quả trong Chat) | `lich` | `lich.md` |
 | Kênh: bot Telegram riêng — trả lời | `telegram-bot` | `telegram-bot.md` |
 | Kênh: Zalo Bot riêng — trả lời | `zalo-bot` | `zalo-bot.md` |
+| Kênh: Zalo cá nhân — trả lời (kéo theo khuôn nghe) | `zalo-ca-nhan-tra-loi` | `zalo-ca-nhan-tra-loi.md` |
 
 Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay. Trước khi viết plugin có
 việc nền hay sửa khuôn: đọc `bay.md`.

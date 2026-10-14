@@ -26,7 +26,8 @@ nào làm việc đó. Repo đã chạy thật cách này ở Findy (`ws-market-
 4. Tài khoản đã có agent khác nghe (công cụ hay lệnh báo "đọc ké") → `<prefix>_zalo_doc_ke` liệt kê, hỏi người dùng, rồi
    chọn. Không đăng nhập lần hai cùng một tài khoản.
 5. Agent CHỈ NGHE: công cụ tự viết luật cứng không bao giờ gửi tin vào SOUL (mục "Giới hạn của bản này") khi khuôn này
-   đã áp — đừng viết tay. Tóm tắt theo giờ: thêm khuôn `lich` (`lich.md`).
+   đã áp — đừng viết tay. Tóm tắt theo giờ: thêm khuôn `lich` (`lich.md`). Muốn agent trả lời trên chính tài khoản
+   này: khuôn `zalo-ca-nhan-tra-loi` (`zalo-ca-nhan-tra-loi.md`) — nó thay luật chỉ nghe.
 
 ## Sau khi cài
 

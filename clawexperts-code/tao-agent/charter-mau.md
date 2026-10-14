@@ -50,7 +50,7 @@ dựng đọc sau này) và **bản tóm tắt** (trình trong chat để duyệ
 - <vd màn hình riêng (dashboard) — hoặc: không có>
 
 ## 10. Năng lực cần
-- Kênh: <không (chỉ Chat) / Zalo cá nhân — nghe group "<tên>", "<tên>" / Zalo cá nhân — trả lời / Zalo Bot "<tên bot>" / Telegram "<tên bot>">
+- Kênh: <không (chỉ Chat) / Zalo cá nhân — nghe group "<tên>", "<tên>" / Zalo cá nhân — trả lời tin riêng <mọi người / "<tên>", "<tên>">, nhóm <không / "<tên>" khi được tag> / Zalo Bot "<tên bot>" / Telegram "<tên bot>">
 - Chỉ nghe (không bao giờ gửi tin): <có / không>
 - Lịch: <không / <việc> lúc <HH:MM> giờ Việt Nam, gửi vào <Chat / Telegram / Zalo>>
 - Ứng dụng: <không / Google Sheets "<tên>" — đọc, ghi / Drive / Gmail …>
