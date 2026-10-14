@@ -46,3 +46,15 @@ Chưng cất từ sự cố thật của các use-case ClawExperts. Đọc trư�
   (cả chat lẫn lịch) tới khi đăng nhập model cho nó.
 - **Container dựng lại / cài lại kiểu local xoá sạch kho cron** ⇒ `post-install` phải đặt lại lịch; luôn đếm lại kèm cột tz.
 - **Heartbeat không đọc HEARTBEAT.md** trên 9.x — việc theo giờ đi bằng cron, không bằng heartbeat.
+
+## Telegram
+
+- **Account con `channels.telegram.accounts.<id>` kế thừa MỌI khoá gốc nó không tự đặt** — kể cả `allowFrom`, `groups` của ws
+  khác ⇒ đặt tường minh `dmPolicy · allowFrom · groupPolicy · groupAllowFrom · groups`.
+- **Khoá gốc `channels.telegram.*` = account mặc định dùng chung**: ws cài sau ghi đè nguyên cụm (đã có ca bot giữ nhật ký
+  riêng thành nhận tin của bất kỳ ai). Luôn dùng account mang tên agent + binding `accountId` riêng.
+- **Binding thiếu `accountId` = account `default`**, không phải "mọi account" — tin rơi về agent `main` mà không lỗi nào.
+- **Trong nhóm, bot chỉ nghe khi được tag** (`requireMention` mặc định true) — muốn khác phải đặt rõ theo nhóm.
+- **Lệnh native của plugin (`registerCommand`, `requireAuth: false`) lọt qua tin riêng bất kể `dmPolicy`**, và hiện thành menu
+  trên MỌI bot của máy ⇒ handler phải tự chặn agent / account khác. Native command còn **nuốt `continueAgent`**.
+- **"Bot không thấy tin nhóm"**: poller kẹt hoặc `requireMention` — kiểm `openclaw channels status --probe` trước khi sửa code.
