@@ -10,7 +10,8 @@ Dựng tay từ trang trắng là dính lại đúng các bẫy team đã trả 
    `{{TOOL_PREFIX}}` đã thay bằng tên của agent): object gộp sâu, mảng hợp không trùng; một giá trị đơn KHÁC giá
    trị project đang có thì TỪ CHỐI và nêu đường khoá — sửa giá trị đó hay bỏ khuôn kia, đừng sửa khuôn.
 2. **Chép nguồn plugin** của khuôn vào `agent-<id>/plugins/<id>/` (chưa có plugin thì dựng khung trước) và ghi module
-   vào sổ đăng ký `src/capabilities.ts`. Nguồn chỉ chép MỘT lần: áp lại không đè phần bạn đã viết.
+   vào sổ đăng ký `src/capabilities.ts`. Tệp có chỗ bạn viết (dấu CE_FILL) chỉ chép MỘT lần — áp lại không đè phần bạn
+   đã viết; tệp khuôn thuần (không CE_FILL) là "khuôn — đừng sửa": `ce_build` chép lại bản khuôn mới mỗi lần.
 3. **Ghi tên khuôn** vào `install/capabilities.json` (đi theo Bundle).
 4. **Sinh lại** từ danh sách khuôn đã áp:
    - `install/config.sh`: `post-install` (thêm plugin vào `plugins.allow` nếu máy có allowlist, rồi bước sau cài của
@@ -47,5 +48,7 @@ export default mod;
 | Năng lực (charter mục 10) | Khuôn | Bài |
 |---|---|---|
 | Lưu, tra dữ liệu | `so-du-lieu` (cũng là `ce_plugin_add`) | `luat-plugin.md` của skill `viet-plugin` |
+| Kênh: Zalo cá nhân — chỉ nghe | `zalo-ca-nhan-nghe` | `zalo-ca-nhan-nghe.md` |
 
-Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay.
+Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay. Trước khi viết plugin có
+việc nền hay sửa khuôn: đọc `bay.md`.
