@@ -6,7 +6,8 @@ trong Chat; agent tự gắn. Repo đã chạy cách này ở Kênh báo của F
 
 ## Áp khuôn
 
-`ce_capability_add({ws, capability: "telegram-bot"})`. Không có chỗ CE_FILL. Plugin có 3 công cụ:
+`ce_capability_add({ws, capability: "telegram-bot"})`. Không có chỗ CE_FILL. Overlay bật plugin kênh bundled `telegram`
+(`plugins.entries.telegram.enabled`; máy có `plugins.allow` thì post-install thêm vào). Plugin có 3 công cụ:
 `<prefix>_telegram_cai({token, tin_rieng, nhom})` · `_telegram_trang_thai` · `_telegram_go`.
 - Token KHÔNG vào overlay hay Bundle: chủ dán trong Chat SAU khi cài, công cụ ghi account `channels.telegram.accounts.<agent
   id>` + binding `accountId` riêng bằng `mutateConfigFile` (kênh Telegram tự khởi động lại phần của nó; không restart máy).

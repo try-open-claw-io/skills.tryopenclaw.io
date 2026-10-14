@@ -4,6 +4,7 @@ Playbook cho skill `nang-luc` của ClawExperts Code: dựng kênh, lịch, ứn
 
 - [cach-ap-khuon.md](cach-ap-khuon.md) — khuôn năng lực là gì, ce_capability_add làm gì (gộp overlay, sinh config.sh, chép nguồn plugin, công cụ của agent), module khuôn trong plugin, bảng khuôn có
 - [zalo-ca-nhan-nghe.md](zalo-ca-nhan-nghe.md) — khuôn nghe Zalo cá nhân: đăng nhập QR trong chat, chọn group, đọc tin theo ngày, đọc ké; viết gì vào prompt agent; ws mẫu
-- [bay.md](bay.md) — bẫy đã gặp: register() hai lần, ảnh tool quá cỡ, ảnh cho người dùng bằng MEDIA, openzca (một listener một tài khoản, kho tắt, khoá kẹt, QR 60s), lịch (tz, --exact, --no-deliver, phiên cố định), auth model của agent mới, Telegram (account kế thừa gốc, requireMention, lệnh native)
+- [bay.md](bay.md) — bẫy đã gặp: register() hai lần, ảnh tool quá cỡ, ảnh cho người dùng bằng MEDIA, openzca (một listener một tài khoản, kho tắt, khoá kẹt, QR 60s), lịch (tz, --exact, --no-deliver, phiên cố định), auth model của agent mới, Telegram (account kế thừa gốc, requireMention, lệnh native), Zalo Bot (nhóm bỏ tin im lặng, pairing lộ lệnh, chatId hex)
 - [lich.md](lich.md) — khuôn lịch chạy theo giờ Việt Nam: viết install/lich.json, đồng bộ vào cron, phiên cố định, lưu kết quả, kiểm cron-status
 - [telegram-bot.md](telegram-bot.md) — khuôn bot Telegram riêng: chủ dán token trong Chat, account + tuyến riêng, chính sách tin riêng / nhóm, chống giành bot
+- [zalo-bot.md](zalo-bot.md) — khuôn Zalo Bot riêng (Zalo Bot Platform): token trong Chat, tin riêng theo người nhắn (khách không ghép cặp), nhóm, không tệp / trích dẫn

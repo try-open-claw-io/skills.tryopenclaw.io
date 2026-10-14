@@ -53,6 +53,7 @@ export default mod;
 | Kênh: Zalo cá nhân — chỉ nghe | `zalo-ca-nhan-nghe` | `zalo-ca-nhan-nghe.md` |
 | Lịch: chạy theo giờ (kết quả trong Chat) | `lich` | `lich.md` |
 | Kênh: bot Telegram riêng — trả lời | `telegram-bot` | `telegram-bot.md` |
+| Kênh: Zalo Bot riêng — trả lời | `zalo-bot` | `zalo-bot.md` |
 
 Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay. Trước khi viết plugin có
 việc nền hay sửa khuôn: đọc `bay.md`.

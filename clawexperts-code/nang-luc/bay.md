@@ -58,3 +58,16 @@ Chưng cất từ sự cố thật của các use-case ClawExperts. Đọc trư�
 - **Lệnh native của plugin (`registerCommand`, `requireAuth: false`) lọt qua tin riêng bất kể `dmPolicy`**, và hiện thành menu
   trên MỌI bot của máy ⇒ handler phải tự chặn agent / account khác. Native command còn **nuốt `continueAgent`**.
 - **"Bot không thấy tin nhóm"**: poller kẹt hoặc `requireMention` — kiểm `openclaw channels status --probe` trước khi sửa code.
+
+## Zalo Bot (kênh bundled `zalo`)
+
+- **Ba bề mặt Zalo khác nhau, đừng lẫn**: Zalo Bot (`zalo`, token) · Zalo OA (OAuth + webhook) · Zalo cá nhân (openzca, QR).
+- **Nhóm bị bỏ tin IM LẶNG khi `groupPolicy: "disabled"`** — log của nhánh đó chỉ hiện khi bật verbose; `channels status`
+  in `in: … ago` là tin đã TỚI gateway (tách ca poller chết khỏi ca cổng vứt).
+- **`dmPolicy: "open"` thiếu `allowFrom: ["*"]` là rớt sạch tin riêng**; `groupPolicy: "open"` thì không cần `groupAllowFrom`.
+- **`pairing` cho khách là lộ lệnh OpenClaw** ra ngoài — chỉ dùng cho nội bộ.
+- **chatId của Zalo Bot là HEX** — bản cũ (6.10) với model đi harness codex giữ câu trả lời riêng tư và bắt dùng tool
+  `message`, mà tool đó chỉ nhận id số ⇒ bot câm. Bản 9.x đã vá; gặp lại thì mới tính `messages.visibleReplies` (khoá toàn máy).
+- **Không nhận tệp, không có trích dẫn** — trần của Zalo, không phải của OpenClaw.
+- **Plugin kênh bundled phải bật**: `plugins.entries.zalo.enabled`; máy có `plugins.allow` thì thêm `zalo` vào đó (post-install
+  của khuôn làm) — KHÔNG tự khai `plugins.allow` trong overlay khi máy chưa có allowlist (tắt mọi plugin bundled khác).
