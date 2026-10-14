@@ -23,6 +23,8 @@ Dựng tay từ trang trắng là dính lại đúng các bẫy team đã trả 
      `zalo-ca-nhan-tra-loi`) ⇒ luật "chỉ trả lời, không chủ động" thay cho luật đó (đừng viết tay).
 5. Khuôn cần khuôn khác (vd trả lời Zalo cần khuôn nghe) ⇒ khuôn kia được áp trước, tự động; kết quả nói đã kéo theo.
    Khuôn có luật riêng (trường `luat`, vd trình duyệt) ⇒ công cụ chép các dòng đó vào mục "Giới hạn" của SOUL khi đóng gói.
+   Khuôn cần thư viện npm (trường `phu_thuoc`, vd tạo tệp Word) ⇒ thư viện vào `devDependencies` của plugin, `ce_build`
+   cài rồi esbuild gói vào `dist/`.
 6. Trả: tệp còn phải viết (CE_FILL), khoá overlay vừa thêm, lệnh con, công cụ của agent.
 
 Áp lại cùng khuôn: không đổi byte nào. Khuôn được sửa sau (bản CE Code mới): `ce_build` / `ce_package` sinh lại
@@ -62,6 +64,8 @@ export default mod;
 | MCP ngoài: gọi tool của một MCP server | `mcp-ngoai` | `mcp-ngoai.md` |
 | Khác: nhiều agent (điều phối + chuyên trách) | `nhieu-agent` qua `ce_peer_add` | `nhieu-agent.md` |
 | Khác: mở và đọc trang web | `browser` | `browser.md` |
+| Tệp: tạo Word / Excel cho người dùng tải về | `sinh-tep` | `sinh-tep.md` |
+| Ảnh: đọc chữ trong ảnh (hoá đơn, phiếu) | `ocr` | `ocr.md` |
 
 Năng lực chưa có dòng ở đây = chưa có khuôn sẵn: nói thật với người dùng, không tự dựng tay. Trước khi viết plugin có
 việc nền hay sửa khuôn: đọc `bay.md`.
